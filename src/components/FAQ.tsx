@@ -29,7 +29,7 @@ const faqItems: { question: string; answer: string | React.ReactNode }[] = [
     question: 'How was this portfolio built?',
     answer: (
       <>
-        <p>This portfolio was built through an iterative design-to-code workflow combining Figma, Claude AI, and hands-on front-end development. I started by establishing a full design system in Figma \u2014 defining color tokens, typography scales, spacing values, and component patterns \u2014 then used that system as the single source of truth while building out each section in React and SCSS. You can explore the <a href="#/design-system">design system here</a>.</p>
+        <p>This portfolio was built through an iterative design-to-code workflow combining Figma, Claude AI, and hands-on front-end development. I started by establishing a full design system in Figma defining color tokens, typography scales, spacing values, and component patterns then used that system as the single source of truth while building out each section in React and SCSS. You can explore the <a href="#/design-system">design system here</a>.</p>
         <p>The process was genuinely collaborative: I worked back and forth between Figma mockups and live code, using Claude as a development partner to scaffold components, refine styling logic, audit token consistency, and generate a complete Figma-ready specification from the finished codebase. Every section went through multiple rounds of visual review, brand alignment checks, and responsive refinement \u2014 the same rigor I apply to client work, applied to my own.</p>
       </>
     ),

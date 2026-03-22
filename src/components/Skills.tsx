@@ -9,20 +9,24 @@ const LayersIcon = () => (
 
 const skillCategories = [
   {
-    title: 'Leadership & Strategy',
-    skills: ['Team Leadership', 'Strategic Planning', 'Stakeholder Alignment', 'Design Governance'],
+    title: 'UX & Design Practice',
+    skills: ['Accessibility-First Design (WCAG)', 'SEO-Driven Design', 'Design Systems & Governance', 'A/B Testing & Experimentation', 'Systems Thinking'],
   },
   {
-    title: 'Communication',
-    skills: ['Stakeholder Management', 'Presentation & Storytelling', 'Written Documentation', 'Cross-Functional Facilitation'],
+    title: 'AI & Innovation',
+    skills: ['AI-Augmented Design Workflows', 'Emerging Tool Adoption', 'Design Process Optimization'],
   },
   {
     title: 'Collaboration',
-    skills: ['Engineering Partnership', 'Product Team Integration', 'Mentoring', 'Design Critique'],
+    skills: ['Engineering Partnership', 'Product Team Integration', 'Cross-Functional Facilitation', 'Framework & Template Development'],
   },
   {
-    title: 'Problem Solving',
-    skills: ['Systems Thinking', 'Root Cause Analysis', 'Constraint-Based Design', 'Process Optimization'],
+    title: 'Communication',
+    skills: ['Stakeholder Presentation & Storytelling', 'Written Documentation', 'Stakeholder Management'],
+  },
+  {
+    title: 'Leadership & Strategy',
+    skills: ['Design Leadership', 'Strategic Planning', 'Mentoring & Design Advocacy', 'Process Documentation', 'Stakeholder Alignment'],
   },
 ];
 

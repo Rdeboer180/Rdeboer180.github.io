@@ -130,6 +130,57 @@ button {
 }
 
 // ============================================
+// GLOBAL BUTTON CLASSES
+// ============================================
+
+.btn {
+  font-family: $font-family-heading;
+  font-weight: $font-weight-extrabold;
+  font-size: $font-size-body-sm;
+  border-radius: $button-radius;
+  padding: $button-padding-y-sm $button-padding-x-sm;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: all $transition-fast;
+  cursor: pointer;
+  border: none;
+
+  &--primary {
+    background: $color-primary;
+    color: $color-white;
+
+    &:hover {
+      background: $color-primary-dark;
+      color: $color-primary-light;
+      transform: translateY(-1px);
+    }
+  }
+
+  &--secondary {
+    background: $color-white;
+    color: $color-neutral-dark;
+    border: 1px solid $color-neutral-dark;
+
+    &:hover {
+      background: $color-neutral-dark;
+      color: $color-white;
+      transform: translateY(-1px);
+    }
+  }
+
+  &--lg {
+    height: $button-height-lg;
+    padding: 0 $button-padding-x-lg;
+  }
+
+  &--md {
+    height: $button-height-md;
+    padding: 0 $button-padding-x-md;
+  }
+}
+
+// ============================================
 // FORM ELEMENTS
 // ============================================
 

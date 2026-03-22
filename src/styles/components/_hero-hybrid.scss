@@ -105,7 +105,7 @@
     justify-content: center;
     max-width: $container-max-width;
     margin: 0 auto;
-    padding: 100px $spacing-2xl $spacing-3xl;
+    padding: 150px $spacing-2xl $spacing-3xl;
     width: 100%;
   }
 
@@ -196,55 +196,21 @@
     gap: $spacing-lg;
   }
 
-  &__btn {
-    display: inline-flex;
-    align-items: center;
+  // Buttons use global .btn classes from _base.scss
+  &__btn-icon {
+    width: $icon-size-sm;
+    height: $icon-size-sm;
+  }
+
+  .btn {
     gap: $spacing-sm;
-    font-size: $font-size-body-sm;
-    font-weight: $font-weight-medium;
-    text-decoration: none;
-    transition: all $transition-fast;
-    height: 38px;
 
-    &-icon {
-      width: $icon-size-sm;
-      height: $icon-size-sm;
+    svg {
+      transition: transform $transition-fast;
     }
 
-    &--primary {
-      background: $color-primary;
-      color: $color-white;
-      padding: 0 $spacing-lg;
-      border-radius: $button-radius;
-      font-family: $font-family-heading;
-      font-weight: $font-weight-extrabold;
-
-      &:hover {
-        background: $color-primary-dark;
-        transform: translateY(-2px);
-        box-shadow: $shadow-md;
-      }
-    }
-
-    &--secondary {
-      color: $color-neutral-standard;
-      padding: 0 $spacing-lg;
-      border: 1px solid $color-neutral-light;
-      border-radius: $button-radius;
-
-      svg {
-        transition: transform $transition-fast;
-      }
-
-      &:hover {
-        background: $color-neutral-dark;
-        color: $color-white;
-        border-color: $color-neutral-dark;
-
-        svg {
-          transform: translateX(3px);
-        }
-      }
+    &--secondary:hover svg {
+      transform: translateY(3px);
     }
   }
 
@@ -503,7 +469,7 @@
 @media (max-width: $breakpoint-md) {
   .hero-hybrid {
     &__nav {
-      padding: $spacing-lg $spacing-xl;
+      padding: $spacing-md $spacing-xl;
 
       &-links {
         gap: $spacing-lg;
@@ -580,6 +546,30 @@
 
     &__headline {
       font-size: 32px;
+    }
+  }
+}
+
+@media (max-width: 1042px) {
+  .hero-hybrid {
+    &__actions {
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+
+      .btn {
+        width: 100%;
+        max-width: 350px;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .hero-hybrid {
+    &__actions {
+      align-items: center;
     }
   }
 }

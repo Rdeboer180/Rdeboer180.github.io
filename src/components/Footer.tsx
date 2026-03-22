@@ -4,13 +4,24 @@ const Footer: React.FC = () => {
   return (
     <footer className="footer">
       <div className="footer__container">
-        <div className="footer__links">
-          <a href="https://linkedin.com/in/ryandeboer" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a href="mailto:rdeboer180@gmail.com">rdeboer180@gmail.com</a>
+        <div className="footer__top">
+          <div className="footer__cta">
+            <span className="footer__eyebrow">Get in touch</span>
+          </div>
+          <div className="footer__actions">
+            <a href="mailto:rdeboer180@gmail.com" className="btn btn--primary btn--md">
+              rdeboer180@gmail.com
+            </a>
+            <a href="https://linkedin.com/in/ryandeboer" className="btn btn--secondary btn--md" target="_blank" rel="noopener noreferrer">
+              Connect on LinkedIn
+            </a>
+          </div>
         </div>
-        <p className="footer__copy">
-          &copy; {new Date().getFullYear()} Ryan De Boer
-        </p>
+        <div className="footer__bottom">
+          <p className="footer__copy">
+            &copy; {new Date().getFullYear()} Ryan De Boer
+          </p>
+        </div>
       </div>
     </footer>
   );

@@ -1,12 +1,14 @@
 // ============================================
 // Contact CTA — centered call to action
+// Light mode, brand-aligned
 // ============================================
 
 @import '../variables';
 
 .contact-cta {
-  background: $color-neutral-dark;
+  background: $color-white;
   padding: $spacing-4xl 0;
+  border-top: 1px solid $color-border-default;
 
   &__container {
     max-width: $container-max-width;
@@ -34,7 +36,7 @@
     font-family: $font-family-heading;
     font-size: $font-size-h1;
     font-weight: $font-weight-bold;
-    color: $color-white;
+    color: $color-neutral-dark;
     line-height: $line-height-h1;
     letter-spacing: -0.02em;
     margin-bottom: $spacing-xl;
@@ -81,13 +83,12 @@
 
     &--secondary {
       background: transparent;
-      color: $color-white;
-      border: 1px solid $color-neutral-muted;
+      color: $color-neutral-dark;
+      border: 1px solid $color-neutral-light;
 
       &:hover {
-        background: $color-white;
-        color: $color-neutral-dark;
-        border-color: $color-white;
+        background: $color-neutral-lightest;
+        border-color: $color-neutral-muted;
       }
     }
   }

@@ -8,7 +8,7 @@
 
 .case-study-card {
   position: relative;
-  background: $card-background-alt;
+  background: $color-secondary-light;
   border-radius: $card-border-radius-lg;
   overflow: hidden;
   display: grid;
@@ -111,43 +111,9 @@
     margin-top: $spacing-sm;
   }
 
-  &__cta-btn {
-    font-family: $font-family-heading;
-    font-weight: $font-weight-extrabold;
-    font-size: $font-size-body-sm;
-    border-radius: $button-radius;
-    padding: $button-padding-y-sm $button-padding-x-sm;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    transition: all $transition-fast;
-    cursor: pointer;
+  // Buttons use global .btn classes from _base.scss
 
-    &--primary {
-      background: $color-primary;
-      color: $color-white;
-      border: none;
-
-      &:hover {
-        background: $color-primary-dark;
-        transform: translateY(-1px);
-      }
-    }
-
-    &--secondary {
-      background: $color-white;
-      color: $color-neutral-dark;
-      border: 1px solid $color-neutral-dark;
-
-      &:hover {
-        background: $color-neutral-dark;
-        color: $color-white;
-        transform: translateY(-1px);
-      }
-    }
-  }
-
-  // Image
+  // Image — desaturated by default, full color on card hover
   &__image {
     display: flex;
     align-items: center;
@@ -159,7 +125,13 @@
       max-width: 100%;
       height: auto;
       object-fit: contain;
+      filter: saturate(40%);
+      transition: filter 0.4s ease;
     }
+  }
+
+  &:hover &__image img {
+    filter: saturate(100%);
   }
 
   // Year

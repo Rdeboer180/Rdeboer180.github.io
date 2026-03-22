@@ -42,7 +42,9 @@ const SelectedWork: React.FC = () => {
                 )}
               </div>
               <div className="selected-work__card-visual">
-                <img src={project.featured} alt={project.title} />
+                <div className="selected-work__card-visual-inner">
+                  <img src={project.featured} alt={project.title} />
+                </div>
               </div>
             </a>
           ))}

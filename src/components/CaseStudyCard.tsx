@@ -72,12 +72,12 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({
       {(ctaPrimaryLabel || ctaSecondaryLabel) && (
         <div className="case-study-card__cta">
           {ctaPrimaryLabel && (
-            <a href={ctaPrimaryHref ?? '#'} className="case-study-card__cta-btn case-study-card__cta-btn--primary">
+            <a href={ctaPrimaryHref ?? '#'} className="btn btn--primary">
               {ctaPrimaryLabel}
             </a>
           )}
           {ctaSecondaryLabel && (
-            <a href={ctaSecondaryHref ?? '#'} className="case-study-card__cta-btn case-study-card__cta-btn--secondary">
+            <a href={ctaSecondaryHref ?? '#'} className="btn btn--secondary">
               {ctaSecondaryLabel}
             </a>
           )}

@@ -100,14 +100,14 @@ const HeroHybrid: React.FC = () => {
             </p>
 
             <div className="hero-hybrid__actions hero-hybrid__reveal hero-hybrid__reveal--5">
-              <a href="mailto:rdeboer180@gmail.com" className="hero-hybrid__btn hero-hybrid__btn--primary">
+              <a href="mailto:rdeboer180@gmail.com" className="btn btn--primary btn--lg">
                 <img src="/images/hero/email-icon.svg" alt="" className="hero-hybrid__btn-icon" />
                 rdeboer180@gmail.com
               </a>
-              <a href="#projects" className="hero-hybrid__btn hero-hybrid__btn--secondary">
+              <a href="#projects" className="btn btn--secondary btn--lg">
                 View my work
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+                  <line x1="12" y1="5" x2="12" y2="19" /><polyline points="19 12 12 19 5 12" />
                 </svg>
               </a>
             </div>

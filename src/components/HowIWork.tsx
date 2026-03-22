@@ -1,45 +1,110 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import SectionBadge from './SectionBadge';
+
+const ProcessIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+  </svg>
+);
 
 const steps = [
   {
     label: 'Understand & Align',
-    body: 'I ask the right questions first. Before anything is designed, I map business goals to user needs and make sure we\u2019re building the right thing.',
-    image: '/images/process/placeholder-figma-design.png',
-    imageLabel: 'Figma Design Still',
+    phase: 'Discovery',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+      </svg>
+    ),
+    annotations: ['Stakeholder interviews', 'Business goals', 'User research'],
+    body: 'I ask the right questions before a single pixel moves. I map business goals to user research, surface the real problem early, and align stakeholders across product, engineering, and brand so everyone\u2019s building the same thing.',
   },
   {
-    label: 'Design with Intent',
-    body: 'Every decision is documented. Layouts, tokens, components \u2014 built to be handed off cleanly and extended by a team.',
-    image: '/images/process/placeholder-icon-design.png',
-    imageLabel: 'Icon Design Still',
+    label: 'Design With Intent',
+    phase: 'Design',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 19l7-7 3 3-7 7-3-3z" /><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" /><path d="M2 2l7.586 7.586" /><circle cx="11" cy="11" r="2" />
+      </svg>
+    ),
+    annotations: ['Design tokens', 'Component specs', 'Hi-fi prototypes'],
+    body: 'Every decision is documented and defensible. From high-fidelity prototypes and annotated UI behavior specs to design tokens and component libraries \u2014 I design so engineers can build confidently and teams can extend the work without me in the room.',
   },
   {
-    label: 'Test & Iterate',
-    body: 'I validate with real usage, not assumptions. A/B tests, usability checks, and post-launch reviews feed directly back into the system.',
-    image: '/images/process/placeholder-inspector.png',
-    imageLabel: 'Inspector View',
+    label: 'Build for the Long Game',
+    phase: 'Build',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" />
+      </svg>
+    ),
+    annotations: ['SCSS/BEM', 'CMS architecture', 'Scalable systems'],
+    body: 'With 10+ years of hands-on code experience, I understand how design decisions live in production. I build sustainable components inside complex CMS architectures, translate brand identity into scalable web systems, and deliver work that holds up long after launch.',
   },
   {
-    label: 'Build to Last',
-    body: 'Whether it\u2019s a design system or a CMS workflow, I build so the team can own it without me.',
-    image: '/images/process/placeholder-cms.png',
-    imageLabel: 'CMS Still',
+    label: 'Validate, Optimize & Drive Results',
+    phase: 'Validate',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" />
+      </svg>
+    ),
+    annotations: ['A/B testing', 'SEO analysis', 'Conversion tracking'],
+    body: 'I design for outcomes, not deliverables. A/B testing, usability reviews, SEO-informed information architecture, and post-launch analysis aren\u2019t afterthoughts \u2014 they\u2019re built into how I work, with every release feeding directly back into the next iteration to protect conversion and drive measurable impact.',
+  },
+  {
+    label: 'Always Sharpening',
+    phase: 'Grow',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" /><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+      </svg>
+    ),
+    annotations: ['AI workflows', 'Certifications', 'Emerging tools'],
+    body: 'I treat my craft the way an athlete treats performance \u2014 deliberately. That means ongoing certifications, continuous refinement of soft skills like facilitation and storytelling, and staying ahead of the tools redefining the field. I was an early adopter of AI-augmented workflows and I actively integrate emerging tools to work faster, communicate more clearly, and deliver at a higher level.',
   },
 ];
 
-const CYCLE_DURATION = 6000;
+const CYCLE_DURATION = 8000;
+// Cursor arrives at the note 800ms before the cycle ends, then "clicks"
+const CURSOR_TRAVEL_MS = 600;
 
 const HowIWork: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [userClicked, setUserClicked] = useState(false);
+  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+  const [cursorClicking, setCursorClicking] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const startRef = useRef<number>(Date.now());
+  const boardRef = useRef<HTMLDivElement>(null);
+  const noteRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const resetCycle = (index: number) => {
+  const getNoteCenter = useCallback((index: number) => {
+    const note = noteRefs.current[index];
+    const board = boardRef.current;
+    if (!note || !board) return { x: 0, y: 0 };
+    const boardRect = board.getBoundingClientRect();
+    const noteRect = note.getBoundingClientRect();
+    return {
+      x: noteRect.left - boardRect.left + noteRect.width / 2,
+      y: noteRect.top - boardRect.top + noteRect.height / 2,
+    };
+  }, []);
+
+  // User manually clicks a step
+  const handleUserClick = (index: number) => {
+    setUserClicked(true);
     setActiveIndex(index);
     setProgress(0);
     startRef.current = Date.now();
   };
+
+  // Set initial cursor position
+  useEffect(() => {
+    const pos = getNoteCenter(0);
+    if (pos.x !== 0) setCursorPos(pos);
+  }, [getNoteCenter]);
 
   useEffect(() => {
     startRef.current = Date.now();
@@ -48,44 +113,150 @@ const HowIWork: React.FC = () => {
       const pct = Math.min(elapsed / CYCLE_DURATION, 1);
       setProgress(pct);
 
+      // Move cursor toward next note near the end of the cycle
+      if (!userClicked) {
+        const timeLeft = CYCLE_DURATION - elapsed;
+        const nextIndex = (activeIndex + 1) % steps.length;
+
+        if (timeLeft <= CURSOR_TRAVEL_MS + 200 && timeLeft > 200) {
+          // Cursor is traveling to next note
+          const target = getNoteCenter(nextIndex);
+          if (target.x !== 0) setCursorPos(target);
+        }
+
+        // Brief "click" visual right before transition
+        if (timeLeft <= 300 && timeLeft > 100) {
+          setCursorClicking(true);
+        } else {
+          setCursorClicking(false);
+        }
+      }
+
       if (pct >= 1) {
         setActiveIndex((prev) => (prev + 1) % steps.length);
         setProgress(0);
         startRef.current = Date.now();
+
+        // After transitioning, snap cursor to new active note
+        if (!userClicked) {
+          const newIndex = (activeIndex + 1) % steps.length;
+          const pos = getNoteCenter(newIndex);
+          if (pos.x !== 0) setCursorPos(pos);
+        }
       }
     }, 50);
 
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, []);
+  }, [activeIndex, userClicked, getNoteCenter]);
 
   return (
     <section className="how-i-work">
-      {/* Geometric decorative elements */}
-      <div className="how-i-work__decor how-i-work__decor--top-left" />
-      <div className="how-i-work__decor how-i-work__decor--bottom-right" />
-      <div className="how-i-work__decor how-i-work__decor--corner-bracket" />
-
       <div className="how-i-work__container">
         <div className="how-i-work__header">
-          <span className="how-i-work__eyebrow">Process</span>
+          <SectionBadge icon={<ProcessIcon />} label="Process" />
           <h2 className="how-i-work__title">How I Work</h2>
         </div>
 
         <div className="how-i-work__layout">
-          {/* Left — overlapping image frame */}
-          <div className="how-i-work__visual">
-            <div className="how-i-work__image-frame">
-              <div className="how-i-work__image-placeholder">
-                <span className="how-i-work__image-label">
-                  [{steps[activeIndex].imageLabel}]
-                </span>
-              </div>
+          {/* Left — FigJam-style canvas */}
+          <div className="how-i-work__canvas">
+            <div className="how-i-work__toolbar">
+              <span className="how-i-work__toolbar-dot how-i-work__toolbar-dot--red" />
+              <span className="how-i-work__toolbar-dot how-i-work__toolbar-dot--yellow" />
+              <span className="how-i-work__toolbar-dot how-i-work__toolbar-dot--green" />
+              <span className="how-i-work__toolbar-label">process-map.fig</span>
             </div>
-            {/* Step counter */}
-            <div className="how-i-work__step-count">
-              {String(activeIndex + 1).padStart(2, '0')} / {String(steps.length).padStart(2, '0')}
+
+            <div className="how-i-work__board" ref={boardRef}>
+              <div className="how-i-work__board-dots" />
+
+              {/* SVG connectors */}
+              <svg className="how-i-work__connectors" viewBox="0 0 520 400" fill="none" preserveAspectRatio="xMidYMid meet">
+                <path d="M145 75 C180 75, 195 45, 230 45"
+                  className={`how-i-work__path ${activeIndex > 0 ? 'how-i-work__path--complete' : ''} ${activeIndex === 0 ? 'how-i-work__path--active' : ''}`}
+                  strokeDasharray="5 4" />
+                <polygon points="228,40 238,45 228,50" className={`how-i-work__arrow-head ${activeIndex > 0 ? 'how-i-work__arrow-head--complete' : ''}`} />
+
+                <path d="M340 70 C370 70, 400 100, 400 135"
+                  className={`how-i-work__path ${activeIndex > 1 ? 'how-i-work__path--complete' : ''} ${activeIndex === 1 ? 'how-i-work__path--active' : ''}`}
+                  strokeDasharray="5 4" />
+                <polygon points="395,133 400,143 405,133" className={`how-i-work__arrow-head ${activeIndex > 1 ? 'how-i-work__arrow-head--complete' : ''}`} />
+
+                <path d="M345 185 C310 195, 260 210, 220 220"
+                  className={`how-i-work__path ${activeIndex > 2 ? 'how-i-work__path--complete' : ''} ${activeIndex === 2 ? 'how-i-work__path--active' : ''}`}
+                  strokeDasharray="5 4" />
+                <polygon points="222,215 212,220 222,225" className={`how-i-work__arrow-head ${activeIndex > 2 ? 'how-i-work__arrow-head--complete' : ''}`} />
+
+                <path d="M155 270 C140 300, 200 340, 280 325"
+                  className={`how-i-work__path ${activeIndex > 3 ? 'how-i-work__path--complete' : ''} ${activeIndex === 3 ? 'how-i-work__path--active' : ''}`}
+                  strokeDasharray="5 4" />
+                <polygon points="278,320 288,325 278,330" className={`how-i-work__arrow-head ${activeIndex > 3 ? 'how-i-work__arrow-head--complete' : ''}`} />
+
+                <path d="M390 310 C440 280, 480 180, 460 100 C445 40, 380 10, 145 40"
+                  className="how-i-work__path how-i-work__path--loop" strokeDasharray="4 6" />
+                <polygon points="147,35 137,40 147,45" className="how-i-work__arrow-head how-i-work__arrow-head--loop" />
+              </svg>
+
+              {/* Sticky notes */}
+              {steps.map((step, i) => (
+                <div
+                  key={step.phase}
+                  ref={(el) => { noteRefs.current[i] = el; }}
+                  className={`how-i-work__note how-i-work__note--pos-${i + 1} ${i === activeIndex ? 'how-i-work__note--active' : ''} ${i < activeIndex ? 'how-i-work__note--complete' : ''}`}
+                  onClick={() => handleUserClick(i)}
+                >
+                  <div className="how-i-work__note-icon">{step.icon}</div>
+                  <span className="how-i-work__note-label">{step.phase}</span>
+                  <div className="how-i-work__note-tags">
+                    {step.annotations.map((t) => <span key={t}>{t}</span>)}
+                  </div>
+                  {i === activeIndex && <div className="how-i-work__note-handles" />}
+                </div>
+              ))}
+
+              {/* Decorative elements */}
+              <div className="how-i-work__deco how-i-work__deco--lightbulb">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 18h6" /><path d="M10 22h4" />
+                  <path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z" />
+                </svg>
+              </div>
+              <div className="how-i-work__deco how-i-work__deco--star">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2L9.5 9.5 2 12l7.5 2.5L12 22l2.5-7.5L22 12l-7.5-2.5z" />
+                </svg>
+              </div>
+              <div className="how-i-work__deco how-i-work__deco--grid">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="0.8">
+                  {[0,8,16,24].map(x => [0,8,16,24].map(y => (
+                    <rect key={`${x}-${y}`} x={x+1} y={y+1} width="6" height="6" rx="1" />
+                  )))}
+                </svg>
+              </div>
+              <div className="how-i-work__deco how-i-work__deco--user">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
+                </svg>
+              </div>
+
+              {/* Animated cursor — hidden when user takes over */}
+              {!userClicked && (
+                <div
+                  className={`how-i-work__cursor ${cursorClicking ? 'how-i-work__cursor--clicking' : ''}`}
+                  style={{
+                    transform: `translate(${cursorPos.x}px, ${cursorPos.y}px)`,
+                  }}
+                >
+                  <svg width="14" height="18" viewBox="0 0 14 18" fill="none">
+                    <path d="M1 1L1 13L4.5 9.5L8 17L10.5 15.8L7 8.5L12 7.5L1 1Z" fill="currentColor" stroke="currentColor" strokeWidth="0.5" strokeLinejoin="round" />
+                  </svg>
+                  <span className="how-i-work__cursor-name">Ryan D.</span>
+                  {cursorClicking && <span className="how-i-work__cursor-ripple" />}
+                </div>
+              )}
+
             </div>
           </div>
 
@@ -95,7 +266,7 @@ const HowIWork: React.FC = () => {
               <button
                 key={step.label}
                 className={`how-i-work__step ${i === activeIndex ? 'how-i-work__step--active' : ''}`}
-                onClick={() => resetCycle(i)}
+                onClick={() => handleUserClick(i)}
               >
                 <div className="how-i-work__step-indicator">
                   <div

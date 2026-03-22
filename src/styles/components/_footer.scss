@@ -1,13 +1,13 @@
 // ============================================
-// Footer — Minimal
-// Ref: minimal-footer-light.png
+// Footer — CTA + minimal footer combined
+// Buttons use global .btn classes from _base.scss
 // ============================================
 
 @import '../variables';
 
 .footer {
-  background: $color-secondary-lightest;
-  padding: $spacing-3xl 0;
+  background: $color-neutral-lightest;
+  border-top: 1px solid $color-border-default;
 
   &__container {
     max-width: $container-max-width;
@@ -15,28 +15,84 @@
     padding: 0 $container-padding-x;
   }
 
-  &__links {
+  // ==========================================
+  // Top row — CTA headline + action buttons
+  // ==========================================
+  &__top {
     display: flex;
-    gap: $spacing-2xl;
-    margin-bottom: $spacing-2xl;
+    align-items: center;
+    justify-content: space-between;
+    padding: $spacing-3xl 0;
+  }
 
-    a {
-      font-family: $font-family-primary;
-      font-size: $font-size-body;
-      color: $color-neutral-dark;
-      text-decoration: underline;
-      text-underline-offset: 4px;
-      transition: color $transition-fast;
+  &__cta {
+    display: flex;
+    align-items: baseline;
+    gap: $spacing-lg;
+  }
 
-      &:hover {
-        color: $color-primary;
-      }
-    }
+  &__eyebrow {
+    font-size: $font-size-caption;
+    font-weight: $font-weight-bold;
+    color: $color-primary;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+  }
+
+  // ==========================================
+  // Bottom row — copyright
+  // ==========================================
+  &__bottom {
+    border-top: 1px solid $color-border-default;
+    padding: $spacing-lg 0;
   }
 
   &__copy {
     font-family: $font-family-primary;
-    font-size: $font-size-body-sm;
+    font-size: $font-size-caption;
     color: $color-neutral-muted;
+  }
+}
+
+// ==========================================
+// Responsive
+// ==========================================
+@media (max-width: $breakpoint-md) {
+  .footer {
+    &__top {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $spacing-xl;
+    }
+
+    &__cta {
+      flex-direction: column;
+      gap: $spacing-xs;
+    }
+
+    &__actions {
+      flex-wrap: wrap;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .footer {
+    &__actions {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .btn {
+      width: 100%;
+      justify-content: center;
+    }
   }
 }

@@ -6,9 +6,8 @@ import TechnicalAbilities from './components/TechnicalAbilities';
 import SelectedWork from './components/SelectedWork';
 import Footer from './components/Footer';
 import HowIWork from './components/HowIWork';
-import Impact from './components/Impact';
 import Testimonials from './components/Testimonials';
-import ContactCTA from './components/ContactCTA';
+
 import FAQ from './components/FAQ';
 import DesignSystem from './components/DesignSystem';
 import CaseStudyPage from './components/CaseStudyPage';
@@ -44,13 +43,11 @@ function App() {
       <HeroHybrid />
       <About />
       <HowIWork />
-      <Impact />
-      <Skills />
       <TechnicalAbilities />
+      <Skills />
       <SelectedWork />
       <Testimonials />
       <FAQ />
-      <ContactCTA />
       <Footer />
     </div>
   );

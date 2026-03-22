@@ -1,10 +1,23 @@
 // ============================================
-// How I Work — Tabbed cycling process section
-// Light brand background, overlapping image/text layout
-// Inspired by strengths-card-grid + Webflow overlap treatment
+// How I Work — FigJam canvas flowchart + tabbed steps
+// Free-form sticky notes with curved SVG connectors
 // ============================================
 
 @import '../variables';
+
+@keyframes stickyGlow {
+  0%, 100% { box-shadow: 0 2px 8px rgba($color-primary, 0.12); }
+  50% { box-shadow: 0 4px 20px rgba($color-primary, 0.25); }
+}
+
+@keyframes clickRipple {
+  0% { transform: scale(0); opacity: 0.6; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+@keyframes dashFlow {
+  to { stroke-dashoffset: -18; }
+}
 
 .how-i-work {
   position: relative;
@@ -12,9 +25,6 @@
   padding: $spacing-4xl 0;
   overflow: hidden;
 
-  // ==========================================
-  // Container
-  // ==========================================
   &__container {
     max-width: $container-max-width;
     margin: 0 auto;
@@ -28,17 +38,8 @@
     margin-bottom: $spacing-3xl;
   }
 
-  &__eyebrow {
-    display: block;
-    font-size: $font-size-caption;
-    font-weight: $font-weight-bold;
-    color: $color-primary;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: $spacing-sm;
-  }
-
   &__title {
+    margin-top: $spacing-lg;
     font-family: $font-family-heading;
     font-size: $font-size-h2;
     font-weight: $font-weight-bold;
@@ -48,65 +49,341 @@
   }
 
   // ==========================================
-  // Layout — overlapping panels
+  // Layout
   // ==========================================
   &__layout {
     display: grid;
-    grid-template-columns: 1.15fr 1fr;
-    gap: $spacing-4xl;
+    grid-template-columns: 1.3fr 1fr;
+    gap: $spacing-3xl;
     align-items: start;
   }
 
   // ==========================================
-  // Visual — image frame with overlap into text
+  // Canvas container
   // ==========================================
-  &__visual {
-    position: relative;
-    z-index: 1;
-  }
-
-  &__image-frame {
-    position: relative;
+  &__canvas {
+    position: sticky;
+    top: 100px;
+    background: $color-white;
+    border: 1px solid $color-neutral-light;
     border-radius: $radius-xl;
     overflow: hidden;
-    // Overlap into the text column
-    margin-right: -$spacing-4xl;
     box-shadow: $shadow-lg;
   }
 
-  &__image-placeholder {
-    aspect-ratio: 4 / 3;
-    background: $color-white;
-    border: 1px solid $color-border-default;
-    border-radius: $radius-xl;
+  // macOS toolbar
+  &__toolbar {
+    height: 36px;
+    background: $color-neutral-standard;
+    border-bottom: 1px solid $color-neutral-light;
     display: flex;
     align-items: center;
-    justify-content: center;
+    padding: 0 $spacing-md;
+    gap: 6px;
   }
 
-  &__image-label {
-    font-family: $font-family-mono;
-    font-size: $font-size-body-sm;
-    color: $color-neutral-muted;
-    opacity: 0.5;
+  &__toolbar-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    &--red { background: #ff5f57; }
+    &--yellow { background: #ffbd2e; }
+    &--green { background: #28c840; }
   }
 
-  &__step-count {
-    margin-top: $spacing-lg;
+  &__toolbar-label {
+    margin-left: auto;
     font-family: $font-family-mono;
-    font-size: $font-size-caption;
-    color: $color-neutral-muted;
-    letter-spacing: 0.06em;
+    font-size: 10px;
+    color: $color-neutral-lightest;
   }
 
   // ==========================================
-  // Steps — tabbed process (right side)
+  // Board — the canvas area
+  // ==========================================
+  &__board {
+    position: relative;
+    height: 440px;
+    overflow: hidden;
+  }
+
+  // Dot grid
+  &__board-dots {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba($color-neutral-dark, 0.08) 1px, transparent 1px);
+    background-size: 18px 18px;
+    pointer-events: none;
+  }
+
+  // ==========================================
+  // SVG connector paths
+  // ==========================================
+  &__connectors {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  &__path {
+    stroke: $color-neutral-light;
+    stroke-width: 1.5;
+    fill: none;
+    transition: stroke 0.4s ease;
+
+    &--complete {
+      stroke: $color-primary;
+    }
+
+    &--active {
+      stroke: $color-primary;
+      animation: dashFlow 1.2s linear infinite;
+    }
+
+    &--loop {
+      stroke: $color-neutral-light;
+      stroke-width: 1;
+      opacity: 0.5;
+    }
+  }
+
+  &__arrow-head {
+    fill: $color-neutral-light;
+    transition: fill 0.4s ease;
+
+    &--complete { fill: $color-primary; }
+    &--loop { fill: $color-neutral-light; opacity: 0.5; }
+  }
+
+  // ==========================================
+  // Sticky notes — absolute positioned
+  // ==========================================
+  &__note {
+    position: absolute;
+    z-index: 2;
+    background: $color-white;
+    border: 1.5px solid $color-neutral-light;
+    border-radius: $radius-md;
+    padding: 10px 12px;
+    width: 135px;
+    cursor: pointer;
+    transition: all 0.35s ease;
+    transform-origin: center center;
+
+    &:hover {
+      border-color: $color-primary-muted;
+      transform: scale(1.04);
+      z-index: 5;
+    }
+
+    // Positions — scattered like a real FigJam board
+    &--pos-1 { top: 30px;  left: 20px;  transform: rotate(-2deg); }
+    &--pos-2 { top: 15px;  left: 220px; transform: rotate(1.5deg); }
+    &--pos-3 { top: 130px; left: 340px; transform: rotate(-1deg); }
+    &--pos-4 { top: 200px; left: 75px;  transform: rotate(2deg); }
+    &--pos-5 { top: 290px; left: 270px; transform: rotate(-1.5deg); }
+
+    // Active state
+    &--active {
+      border-color: $color-primary;
+      background: $color-primary-light;
+      animation: stickyGlow 2.5s ease-in-out infinite;
+      z-index: 4;
+
+      .how-i-work__note-label { color: $color-primary; }
+      .how-i-work__note-icon { color: $color-primary; border-color: $color-primary; background: $color-white; }
+      .how-i-work__note-tags span { background: none ; color: $color-primary-dark; }
+    }
+
+    // Complete state
+    &--complete {
+      border-color: $color-primary;
+      background: rgba($color-primary-light, 0.4);
+
+      .how-i-work__note-label { color: $color-primary-dark; }
+      .how-i-work__note-icon { color: $color-primary; border-color: $color-primary; background: $color-primary-light; }
+      .how-i-work__note-tags span { color: $color-primary-dark; }
+    }
+  }
+
+  &__note-icon {
+    width: 26px;
+    height: 26px;
+    border-radius: $radius-sm;
+    border: 1px solid $color-neutral-light;
+    background: $color-neutral-lightest;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-neutral-muted;
+    margin-bottom: 6px;
+    transition: all $transition-fast;
+
+    svg { width: 14px; height: 14px; }
+  }
+
+  &__note-label {
+    display: block;
+    font-family: $font-family-heading;
+    font-size: 11px;
+    font-weight: $font-weight-bold;
+    color: $color-neutral-dark;
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+    transition: color $transition-fast;
+  }
+
+  &__note-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+
+    span {
+      font-family: $font-family-mono;
+      font-size: 8px;
+      color: $color-neutral-muted;
+      background: $color-neutral-lightest;
+      padding: 1px 5px;
+      border-radius: 3px;
+      line-height: 1.5;
+      transition: all $transition-fast;
+    }
+  }
+
+  // Figma selection handles
+  &__note-handles {
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: $color-primary;
+      border: 1px solid $color-white;
+      border-radius: 1px;
+    }
+    &::before { top: -4px; left: -4px; }
+    &::after { top: -4px; right: -4px; }
+
+    // Extra handles via box-shadow trick
+    position: absolute;
+    bottom: -4px;
+    left: -4px;
+    width: 6px;
+    height: 6px;
+    background: $color-primary;
+    border: 1px solid $color-white;
+    border-radius: 1px;
+    pointer-events: none;
+
+    // Bottom-right via pseudo on parent — covered by ::after on the note-handles wrapper
+  }
+
+  // ==========================================
+  // Decorative elements
+  // ==========================================
+  &__deco {
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+
+    &--lightbulb {
+      top: 105px;
+      left: 185px;
+      width: 22px;
+      height: 22px;
+      color: $color-primary;
+      opacity: 0.35;
+    }
+
+    &--star {
+      top: 280px;
+      left: 225px;
+      width: 16px;
+      height: 16px;
+      color: $color-primary;
+      opacity: 0.25;
+    }
+
+    &--grid {
+      top: 50px;
+      left: 420px;
+      width: 30px;
+      height: 30px;
+      color: $color-secondary;
+      opacity: 0.25;
+      transform: rotate(8deg);
+    }
+
+    &--user {
+      top: 330px;
+      left: 40px;
+      width: 20px;
+      height: 20px;
+      color: $color-secondary;
+      opacity: 0.3;
+    }
+  }
+
+  // ==========================================
+  // Cursor — follows notes, clicks on transition
+  // ==========================================
+  &__cursor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    align-items: flex-start;
+    gap: 2px;
+    color: $color-primary;
+    pointer-events: none;
+    // Smooth travel between notes
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    // Offset so the cursor tip points at the note center
+    margin-left: -2px;
+    margin-top: -2px;
+
+    &--clicking {
+      svg {
+        transform: scale(0.85);
+      }
+    }
+  }
+
+  &__cursor-name {
+    font-family: $font-family-heading;
+    font-size: 9px;
+    font-weight: $font-weight-bold;
+    color: $color-white;
+    background: $color-primary;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-top: 14px;
+    white-space: nowrap;
+  }
+
+  &__cursor-ripple {
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: rgba($color-primary, 0.3);
+    animation: clickRipple 0.4s ease-out forwards;
+    pointer-events: none;
+  }
+
+
+  // ==========================================
+  // Steps — tabbed (right side)
   // ==========================================
   &__steps {
     display: flex;
     flex-direction: column;
-    // Push content right to clear the image overlap
-    padding-left: $spacing-3xl;
   }
 
   &__step {
@@ -126,14 +403,11 @@
       border-top: 1px solid $color-neutral-light;
     }
 
-    &:hover {
-      .how-i-work__step-label {
-        color: $color-primary;
-      }
+    &:hover .how-i-work__step-label {
+      color: $color-primary;
     }
   }
 
-  // Left progress indicator bar
   &__step-indicator {
     width: 3px;
     height: 40px;
@@ -182,49 +456,9 @@
     transition: max-height 0.35s ease, opacity 0.3s ease, margin-top 0.3s ease;
 
     &--visible {
-      max-height: 200px;
+      max-height: 300px;
       opacity: 1;
       margin-top: $spacing-sm;
-    }
-  }
-
-  // ==========================================
-  // Decorative elements — subtle brand accents
-  // ==========================================
-  &__decor {
-    position: absolute;
-    pointer-events: none;
-
-    &--top-left {
-      top: 60px;
-      left: 40px;
-      width: 100px;
-      height: 1px;
-      background: $color-primary;
-      opacity: 0.08;
-      transform: rotate(-35deg);
-      transform-origin: left center;
-    }
-
-    &--bottom-right {
-      bottom: 80px;
-      right: 60px;
-      width: 70px;
-      height: 1px;
-      background: $color-primary;
-      opacity: 0.06;
-      transform: rotate(25deg);
-      transform-origin: right center;
-    }
-
-    &--corner-bracket {
-      top: 40px;
-      right: 80px;
-      width: 20px;
-      height: 20px;
-      border-top: 2px solid $color-primary;
-      border-right: 2px solid $color-primary;
-      opacity: 0.08;
     }
   }
 }
@@ -236,15 +470,27 @@
   .how-i-work {
     &__layout {
       grid-template-columns: 1fr 1fr;
+      gap: $spacing-2xl;
     }
 
-    &__image-frame {
-      margin-right: -$spacing-xl;
+    &__board {
+      height: 380px;
     }
 
-    &__steps {
-      padding-left: $spacing-xl;
+    &__note {
+      width: 115px;
+      padding: 8px 10px;
+
+      &--pos-1 { top: 25px;  left: 10px; }
+      &--pos-2 { top: 10px;  left: 180px; }
+      &--pos-3 { top: 115px; left: 280px; }
+      &--pos-4 { top: 180px; left: 55px; }
+      &--pos-5 { top: 260px; left: 220px; }
     }
+
+    &__deco--grid { display: none; }
+
+    &__connectors { display: none; }
   }
 }
 
@@ -257,16 +503,38 @@
       gap: $spacing-2xl;
     }
 
-    &__image-frame {
-      margin-right: 0;
+    &__canvas {
+      position: static;
     }
 
-    &__steps {
-      padding-left: 0;
+    &__board {
+      height: 360px;
     }
 
-    &__decor {
-      display: none;
+    &__note {
+      &--pos-1 { top: 20px;  left: 5%; }
+      &--pos-2 { top: 10px;  left: 42%; }
+      &--pos-3 { top: 120px; left: 60%; }
+      &--pos-4 { top: 190px; left: 10%; }
+      &--pos-5 { top: 270px; left: 45%; }
     }
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .how-i-work {
+    &__board { height: 500px; }
+
+    &__note {
+      width: 130px;
+
+      &--pos-1 { top: 10px;  left: 5%; }
+      &--pos-2 { top: 10px;  left: 52%; }
+      &--pos-3 { top: 160px; left: 30%; }
+      &--pos-4 { top: 290px; left: 5%; }
+      &--pos-5 { top: 290px; left: 52%; }
+    }
+
+    &__connectors, &__cursor, &__deco { display: none; }
   }
 }
