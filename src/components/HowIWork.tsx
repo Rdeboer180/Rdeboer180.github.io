@@ -53,7 +53,7 @@ const steps = [
     body: 'I design for outcomes, not deliverables. A/B testing, usability reviews, SEO-informed information architecture, and post-launch analysis aren\u2019t afterthoughts \u2014 they\u2019re built into how I work, with every release feeding directly back into the next iteration to protect conversion and drive measurable impact.',
   },
   {
-    label: 'Always Sharpening',
+    label: 'Putting in the reps',
     phase: 'Grow',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -66,8 +66,16 @@ const steps = [
 ];
 
 const CYCLE_DURATION = 8000;
-// Cursor arrives at the note 800ms before the cycle ends, then "clicks"
 const CURSOR_TRAVEL_MS = 600;
+
+// AI Prompt animation config
+const PRE_FILLED = "I've uploaded hundreds of files \u2014 notes, process documents, wireframes, design systems, presentation proofs, and finished products. ";
+const TYPED_PORTION = "Can you take those files and tell the world what makes me Awesome?";
+const FULL_PROMPT = PRE_FILLED + TYPED_PORTION;
+const DELETE_PORTION = "makes me Awesome?";
+const REPLACEMENT = "sets me apart";
+
+type PromptPhase = 'idle' | 'typing' | 'pause-before-delete' | 'deleting' | 'pause-before-retype' | 'retyping' | 'pause-before-submit' | 'submitting' | 'computing' | 'vibing' | 'streaming' | 'done';
 
 const HowIWork: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -75,10 +83,24 @@ const HowIWork: React.FC = () => {
   const [userClicked, setUserClicked] = useState(false);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
   const [cursorClicking, setCursorClicking] = useState(false);
+  const [isInView, setIsInView] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const startRef = useRef<number>(Date.now());
+  const sectionRef = useRef<HTMLElement>(null);
   const boardRef = useRef<HTMLDivElement>(null);
   const noteRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // AI prompt state
+  const [promptPhase, setPromptPhase] = useState<PromptPhase>('idle');
+  const [promptText, setPromptText] = useState(PRE_FILLED);
+  const [statusText, setStatusText] = useState('');
+  const hasPlayed = useRef(false);
+
+  // Streaming body text — tracks how many chars of each step's real body are revealed
+  const [streamedChars, setStreamedChars] = useState<number[]>(steps.map(() => 0));
+  const streamIndexRef = useRef(0); // which step is currently streaming
+
+  const contentRevealed = promptPhase === 'done' || promptPhase === 'streaming';
 
   const getNoteCenter = useCallback((index: number) => {
     const note = noteRefs.current[index];
@@ -92,7 +114,6 @@ const HowIWork: React.FC = () => {
     };
   }, []);
 
-  // User manually clicks a step
   const handleUserClick = (index: number) => {
     setUserClicked(true);
     setActiveIndex(index);
@@ -100,31 +121,159 @@ const HowIWork: React.FC = () => {
     startRef.current = Date.now();
   };
 
+  // Start prompt animation when section comes into view
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+        if (entry.isIntersecting && !hasPlayed.current) {
+          hasPlayed.current = true;
+          setPromptPhase('typing');
+        }
+      },
+      { threshold: 0.15 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // AI prompt typing state machine
+  useEffect(() => {
+    if (promptPhase === 'idle' || promptPhase === 'done') return;
+
+    let timer: ReturnType<typeof setTimeout>;
+
+    switch (promptPhase) {
+      case 'typing': {
+        if (promptText.length < FULL_PROMPT.length) {
+          timer = setTimeout(() => {
+            setPromptText(FULL_PROMPT.substring(0, promptText.length + 1));
+          }, 20);
+        } else {
+          timer = setTimeout(() => setPromptPhase('pause-before-delete'), 600);
+        }
+        break;
+      }
+      case 'pause-before-delete': {
+        timer = setTimeout(() => setPromptPhase('deleting'), 300);
+        break;
+      }
+      case 'deleting': {
+        const targetLength = FULL_PROMPT.length - DELETE_PORTION.length;
+        if (promptText.length > targetLength) {
+          timer = setTimeout(() => {
+            setPromptText(promptText.substring(0, promptText.length - 1));
+          }, 15);
+        } else {
+          timer = setTimeout(() => setPromptPhase('pause-before-retype'), 200);
+        }
+        break;
+      }
+      case 'pause-before-retype': {
+        timer = setTimeout(() => setPromptPhase('retyping'), 150);
+        break;
+      }
+      case 'retyping': {
+        const base = FULL_PROMPT.substring(0, FULL_PROMPT.length - DELETE_PORTION.length);
+        const currentReplacement = promptText.substring(base.length);
+        if (currentReplacement.length < REPLACEMENT.length) {
+          timer = setTimeout(() => {
+            setPromptText(base + REPLACEMENT.substring(0, currentReplacement.length + 1));
+          }, 35);
+        } else {
+          timer = setTimeout(() => setPromptPhase('pause-before-submit'), 800);
+        }
+        break;
+      }
+      case 'pause-before-submit': {
+        timer = setTimeout(() => setPromptPhase('submitting'), 80);
+        break;
+      }
+      case 'submitting': {
+        timer = setTimeout(() => {
+          setStatusText('Computing');
+          setPromptPhase('computing');
+        }, 300);
+        break;
+      }
+      case 'computing': {
+        timer = setTimeout(() => {
+          setStatusText('Vibing');
+          setPromptPhase('vibing');
+        }, 700);
+        break;
+      }
+      case 'vibing': {
+        timer = setTimeout(() => {
+          streamIndexRef.current = 0;
+          setPromptPhase('streaming');
+        }, 600);
+        break;
+      }
+      case 'streaming': {
+        const idx = streamIndexRef.current;
+        if (idx >= steps.length) {
+          // All steps streamed
+          timer = setTimeout(() => setPromptPhase('done'), 200);
+        } else {
+          const currentChars = streamedChars[idx];
+          const targetBody = steps[idx].body;
+          if (currentChars < targetBody.length) {
+            // Stream 3-6 chars at a time for speed
+            const chunkSize = Math.min(4, targetBody.length - currentChars);
+            timer = setTimeout(() => {
+              setStreamedChars(prev => {
+                const next = [...prev];
+                next[idx] = Math.min(currentChars + chunkSize, targetBody.length);
+                return next;
+              });
+            }, 8);
+          } else {
+            // This step is done, move to next
+            streamIndexRef.current = idx + 1;
+            timer = setTimeout(() => {
+              // Force re-render to pick up next index
+              setStreamedChars(prev => [...prev]);
+            }, 150);
+          }
+        }
+        break;
+      }
+    }
+
+    return () => clearTimeout(timer);
+  }, [promptPhase, promptText, streamedChars]);
+
   // Set initial cursor position
   useEffect(() => {
     const pos = getNoteCenter(0);
     if (pos.x !== 0) setCursorPos(pos);
   }, [getNoteCenter]);
 
+  // Canvas auto-cycle (only runs after prompt is done)
   useEffect(() => {
+    if (!isInView || promptPhase !== 'done') {
+      if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null; }
+      return;
+    }
+
     startRef.current = Date.now();
     timerRef.current = setInterval(() => {
       const elapsed = Date.now() - startRef.current;
       const pct = Math.min(elapsed / CYCLE_DURATION, 1);
       setProgress(pct);
 
-      // Move cursor toward next note near the end of the cycle
       if (!userClicked) {
         const timeLeft = CYCLE_DURATION - elapsed;
         const nextIndex = (activeIndex + 1) % steps.length;
 
         if (timeLeft <= CURSOR_TRAVEL_MS + 200 && timeLeft > 200) {
-          // Cursor is traveling to next note
           const target = getNoteCenter(nextIndex);
           if (target.x !== 0) setCursorPos(target);
         }
 
-        // Brief "click" visual right before transition
         if (timeLeft <= 300 && timeLeft > 100) {
           setCursorClicking(true);
         } else {
@@ -137,7 +286,6 @@ const HowIWork: React.FC = () => {
         setProgress(0);
         startRef.current = Date.now();
 
-        // After transitioning, snap cursor to new active note
         if (!userClicked) {
           const newIndex = (activeIndex + 1) % steps.length;
           const pos = getNoteCenter(newIndex);
@@ -149,16 +297,32 @@ const HowIWork: React.FC = () => {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [activeIndex, userClicked, getNoteCenter]);
+  }, [activeIndex, userClicked, isInView, getNoteCenter, promptPhase]);
+
+  const isProcessing = promptPhase === 'computing' || promptPhase === 'vibing';
+  const hasSubmitted = promptPhase === 'submitting' || isProcessing;
+  const showPromptInBoard = promptPhase !== 'idle' && promptPhase !== 'done';
+
+  // Get the display text for each step body
+  const getStepBody = (index: number) => {
+    if (promptPhase === 'done') return steps[index].body;
+    if (promptPhase === 'streaming') {
+      const chars = streamedChars[index];
+      if (chars > 0) {
+        return steps[index].body.substring(0, chars) + (chars < steps[index].body.length ? '\u2588' : '');
+      }
+    }
+    return '';
+  };
 
   return (
-    <section className="how-i-work">
-      <div className="how-i-work__container">
-        <div className="how-i-work__header">
-          <SectionBadge icon={<ProcessIcon />} label="Process" />
-          <h2 className="how-i-work__title">How I Work</h2>
-        </div>
+    <section className="how-i-work" ref={sectionRef}>
+      <div className="how-i-work__header">
+        <SectionBadge icon={<ProcessIcon />} label="Process" />
+        <h2 className="how-i-work__title">I Don't Just Design. I Document, Ship, and Prove It.</h2>
+      </div>
 
+      <div className="how-i-work__container">
         <div className="how-i-work__layout">
           {/* Left — FigJam-style canvas */}
           <div className="how-i-work__canvas">
@@ -172,8 +336,40 @@ const HowIWork: React.FC = () => {
             <div className="how-i-work__board" ref={boardRef}>
               <div className="how-i-work__board-dots" />
 
-              {/* SVG connectors */}
-              <svg className="how-i-work__connectors" viewBox="0 0 520 400" fill="none" preserveAspectRatio="xMidYMid meet">
+              {/* AI Prompt — inside the board */}
+              {showPromptInBoard && (
+                <div className={`how-i-work__board-prompt ${promptPhase === 'streaming' ? 'how-i-work__board-prompt--fading' : ''}`}>
+                  {/* Status area (computing/vibing) */}
+                  {isProcessing && (
+                    <div className="how-i-work__ai-status">
+                      <div className="how-i-work__ai-spinner" />
+                      <span className="how-i-work__ai-status-text">{statusText}</span>
+                    </div>
+                  )}
+
+                  {/* Prompt input */}
+                  {!hasSubmitted && (
+                    <div className="how-i-work__ai-prompt">
+                      <div className="how-i-work__ai-input">
+                        <span className="how-i-work__ai-prompt-text">{promptText}</span>
+                        <span className="how-i-work__ai-prompt-cursor" />
+                      </div>
+                      <button
+                        className={`how-i-work__ai-send ${promptPhase === 'pause-before-submit' ? 'how-i-work__ai-send--active' : ''}`}
+                        aria-label="Send"
+                      >
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <line x1="22" y1="2" x2="11" y2="13" />
+                          <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                        </svg>
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* SVG connectors — visible after content reveals */}
+              <svg className={`how-i-work__connectors ${contentRevealed ? 'how-i-work__connectors--visible' : ''}`} viewBox="0 0 520 400" fill="none" preserveAspectRatio="xMidYMid meet">
                 <path d="M145 75 C180 75, 195 45, 230 45"
                   className={`how-i-work__path ${activeIndex > 0 ? 'how-i-work__path--complete' : ''} ${activeIndex === 0 ? 'how-i-work__path--active' : ''}`}
                   strokeDasharray="5 4" />
@@ -199,12 +395,12 @@ const HowIWork: React.FC = () => {
                 <polygon points="147,35 137,40 147,45" className="how-i-work__arrow-head how-i-work__arrow-head--loop" />
               </svg>
 
-              {/* Sticky notes */}
+              {/* Sticky notes — visible after content reveals */}
               {steps.map((step, i) => (
                 <div
                   key={step.phase}
                   ref={(el) => { noteRefs.current[i] = el; }}
-                  className={`how-i-work__note how-i-work__note--pos-${i + 1} ${i === activeIndex ? 'how-i-work__note--active' : ''} ${i < activeIndex ? 'how-i-work__note--complete' : ''}`}
+                  className={`how-i-work__note how-i-work__note--pos-${i + 1} ${i === activeIndex ? 'how-i-work__note--active' : ''} ${i < activeIndex ? 'how-i-work__note--complete' : ''} ${!contentRevealed ? 'how-i-work__note--hidden' : ''}`}
                   onClick={() => handleUserClick(i)}
                 >
                   <div className="how-i-work__note-icon">{step.icon}</div>
@@ -217,32 +413,32 @@ const HowIWork: React.FC = () => {
               ))}
 
               {/* Decorative elements */}
-              <div className="how-i-work__deco how-i-work__deco--lightbulb">
+              <div className={`how-i-work__deco how-i-work__deco--lightbulb ${!contentRevealed ? 'how-i-work__deco--hidden' : ''}`}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M9 18h6" /><path d="M10 22h4" />
                   <path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z" />
                 </svg>
               </div>
-              <div className="how-i-work__deco how-i-work__deco--star">
+              <div className={`how-i-work__deco how-i-work__deco--star ${!contentRevealed ? 'how-i-work__deco--hidden' : ''}`}>
                 <svg viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 2L9.5 9.5 2 12l7.5 2.5L12 22l2.5-7.5L22 12l-7.5-2.5z" />
                 </svg>
               </div>
-              <div className="how-i-work__deco how-i-work__deco--grid">
+              <div className={`how-i-work__deco how-i-work__deco--grid ${!contentRevealed ? 'how-i-work__deco--hidden' : ''}`}>
                 <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="0.8">
                   {[0,8,16,24].map(x => [0,8,16,24].map(y => (
                     <rect key={`${x}-${y}`} x={x+1} y={y+1} width="6" height="6" rx="1" />
                   )))}
                 </svg>
               </div>
-              <div className="how-i-work__deco how-i-work__deco--user">
+              <div className={`how-i-work__deco how-i-work__deco--user ${!contentRevealed ? 'how-i-work__deco--hidden' : ''}`}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
                 </svg>
               </div>
 
               {/* Animated cursor — hidden when user takes over */}
-              {!userClicked && (
+              {!userClicked && promptPhase === 'done' && (
                 <div
                   className={`how-i-work__cursor ${cursorClicking ? 'how-i-work__cursor--clicking' : ''}`}
                   style={{
@@ -276,9 +472,9 @@ const HowIWork: React.FC = () => {
                 </div>
                 <div className="how-i-work__step-content">
                   <h3 className="how-i-work__step-label">{step.label}</h3>
-                  <p className={`how-i-work__step-body ${i === activeIndex ? 'how-i-work__step-body--visible' : ''}`}>
-                    {step.body}
-                  </p>
+                  <div className={`how-i-work__step-body ${i === activeIndex ? 'how-i-work__step-body--visible' : ''}`}>
+                    <span>{getStepBody(i)}</span>
+                  </div>
                 </div>
               </button>
             ))}

@@ -21,7 +21,7 @@ const About: React.FC = () => {
         <div className="about__content">
           <div className="about__text">
             <SectionBadge icon={<UserIcon />} label="About Me" />
-            <h2 className="about__title">Bridging Design And Engineering Since Highschool</h2>
+            <h2 className="about__title">Fluent in Design. Fluent in Code. No Translation Layer Required.</h2>
             <p className="about__body">
               I'm a Front-End Developer and UX Engineer with 16+ years of professional experience — and a design obsession that started well before that. I built my foundation intentionally: focused every high school elective on visual communication, interned at a local broadcast station, took early college courses while still in high school, and entered Kendall College of Art and Design's advanced track, where I majored in Graphic Design and minored in Web Animation. Summers in college meant real client work — Notre Dame, the South Bend Tribune, a fitness startup — before moving into product design full-time.
             </p>

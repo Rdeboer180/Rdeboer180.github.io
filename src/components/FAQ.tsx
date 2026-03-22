@@ -21,12 +21,18 @@ const faqItems: { question: string; answer: string | React.ReactNode }[] = [
     question: 'Do you take on freelance or contract work?',
     answer: 'Yes. I take on freelance and contract engagements depending on scope and timing. I\u2019m open to project-based work, embedded team contracts, and advisory roles. Reach out with your timeline and I\u2019ll let you know if it\u2019s a fit.',
   },
-  {
-    question: 'What does your process look like from kickoff to delivery?',
-    answer: 'I start with alignment \u2014 understanding the business problem, user needs, and constraints. From there I move through information architecture, wireframes, visual design, and into high-fidelity prototypes or production code. Every phase includes documented decisions and stakeholder checkpoints so nothing is a surprise at handoff.',
+{
+    question: 'What drives you outside of design?',
+    answer: (
+      <>
+        <p>People first. I married my high school sweetheart Stephanie — we've now spent more than half our lives together — and our two kids are the center of everything. Weekends usually mean the park, the zoo, or wherever the next national park road trip takes us.</p>
+        <p>Outside of family, a lot of what I do for fun still involves building things. I manage my Type 1 diabetes using a custom-coded branch of the Loop app — a closed-loop insulin delivery system I've configured and maintained myself. It's equal parts health management and engineering hobby, and it's given me a deep appreciation for how thoughtful software design can have real, daily impact on someone's quality of life.</p>
+        <p>Football Sundays are sacred. I've run a dynasty fantasy football league — the Grandville Gremlins — for about a decade, and every team has a custom mascot and logo I designed. It keeps a tight group of high school and college friends connected year-round. And like most people, I unwind with good TV and film. Always watching something.</p>
+      </>
+    ),
   },
   {
-    question: 'How was this portfolio built?',
+    question: 'How was my portfolio built?',
     answer: (
       <>
         <p>This portfolio was built through an iterative design-to-code workflow combining Figma, Claude AI, and hands-on front-end development. I started by establishing a full design system in Figma defining color tokens, typography scales, spacing values, and component patterns then used that system as the single source of truth while building out each section in React and SCSS. You can explore the <a href="#/design-system">design system here</a>.</p>
