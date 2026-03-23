@@ -102,7 +102,6 @@ const qaItems: QAItem[] = [
 type HistoryEntry =
   | { type: 'user'; content: React.ReactNode }
   | { type: 'ai'; content: React.ReactNode }
-  | { type: 'followup-prompt' }           // "Want to know even more?" + 1) yes
   | { type: 'options'; excludeIds: number[] }; // Renumbered remaining questions
 
 // ============================================
@@ -135,7 +134,7 @@ const AboutPage: React.FC = () => {
 
   const handleSubmit = useCallback((value: string) => {
     const trimmed = value.trim().toLowerCase();
-    if (!trimmed || isStreaming) return;
+    if (isStreaming) return;
 
     // Reset
     if (trimmed === 'r') {
@@ -146,38 +145,28 @@ const AboutPage: React.FC = () => {
       return;
     }
 
-    const num = parseInt(trimmed, 10);
-
-    // STATE: Waiting for "1 = yes, show me more"
+    // STATE: Waiting for Enter to show more questions
     if (awaitingMoreConfirm) {
-      if (num === 1) {
-        const remaining = getRemainingQuestions(exploredIds);
-        if (remaining.length === 0) {
-          setHistory(prev => [
-            ...prev,
-            { type: 'user', content: trimmed },
-            { type: 'ai', content: <p>You've explored everything I've got! Type <strong>R</strong> to start over, or head back to the <a href="/">homepage</a>.</p> },
-          ]);
-        } else {
-          setHistory(prev => [
-            ...prev,
-            { type: 'user', content: trimmed },
-            { type: 'options', excludeIds: Array.from(exploredIds) },
-          ]);
-        }
-        setAwaitingMoreConfirm(false);
-        setInputValue('');
-        return;
+      const remaining = getRemainingQuestions(exploredIds);
+      if (remaining.length === 0) {
+        setHistory(prev => [
+          ...prev,
+          { type: 'ai', content: <p>You've explored everything I've got! Type <strong>R</strong> to start over, or head back to the <a href="/">homepage</a>.</p> },
+        ]);
+      } else {
+        setHistory(prev => [
+          ...prev,
+          { type: 'options', excludeIds: Array.from(exploredIds) },
+        ]);
       }
-      // Invalid input during confirm
-      setHistory(prev => [
-        ...prev,
-        { type: 'user', content: trimmed },
-        { type: 'ai', content: <p>Type <strong>1</strong> to see more topics, or <strong>R</strong> to start over.</p> },
-      ]);
+      setAwaitingMoreConfirm(false);
       setInputValue('');
       return;
     }
+
+    if (!trimmed) return;
+
+    const num = parseInt(trimmed, 10);
 
     // STATE: Picking from the initial or re-shown question list
     // Map the displayed number to the actual QA item
@@ -191,7 +180,7 @@ const AboutPage: React.FC = () => {
 
       setHistory(prev => [
         ...prev,
-        { type: 'user', content: String(num) },
+        { type: 'user', content: <>{num}. {qa.question}</> },
       ]);
       setInputValue('');
 
@@ -201,9 +190,7 @@ const AboutPage: React.FC = () => {
           { type: 'ai', content: qa.answer },
         ];
 
-        if (moreRemaining.length > 0) {
-          newEntries.push({ type: 'followup-prompt' });
-        } else {
+        if (moreRemaining.length === 0) {
           newEntries.push({
             type: 'ai',
             content: <p>That's everything I've got. You've explored all 8 topics! Type <strong>R</strong> to start over, or head back to the <a href="/">homepage</a>.</p>,
@@ -211,7 +198,11 @@ const AboutPage: React.FC = () => {
         }
 
         setHistory(prev => [...prev, ...newEntries]);
-        setAwaitingMoreConfirm(moreRemaining.length > 0);
+        const hasMore = moreRemaining.length > 0;
+        setAwaitingMoreConfirm(hasMore);
+        if (hasMore) {
+          setInputValue('');
+        }
         setIsStreaming(false);
       }, 500);
 
@@ -263,7 +254,7 @@ const AboutPage: React.FC = () => {
 
   // Get current placeholder text
   const getPlaceholder = () => {
-    if (awaitingMoreConfirm) return 'Type 1 to continue ↵';
+    if (awaitingMoreConfirm) return 'Want to know more? Press Enter ↵';
     return 'Type a number and press Enter ↵';
   };
 
@@ -347,26 +338,6 @@ const AboutPage: React.FC = () => {
                     <div className="about-page__msg-label">Claude</div>
                     <div className="about-page__msg-bubble about-page__msg-bubble--ai">
                       {entry.content}
-                    </div>
-                  </div>
-                );
-              }
-              if (entry.type === 'followup-prompt') {
-                return (
-                  <div key={i} className="about-page__msg about-page__msg--ai">
-                    <div className="about-page__msg-label">Claude</div>
-                    <div className="about-page__msg-bubble about-page__msg-bubble--ai about-page__msg-bubble--followup">
-                      <p>Want to know even more about me?</p>
-                      <div className="about-page__options about-page__options--compact">
-                        <button
-                          className="about-page__option"
-                          onClick={() => handleSubmit('1')}
-                          disabled={isStreaming}
-                        >
-                          <span className="about-page__option-num">1</span>
-                          <span className="about-page__option-text">Yes, show me more</span>
-                        </button>
-                      </div>
                     </div>
                   </div>
                 );
