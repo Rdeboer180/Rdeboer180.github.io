@@ -21,15 +21,19 @@ const About: React.FC = () => {
         <div className="about__content">
           <div className="about__text">
             <SectionBadge icon={<UserIcon />} label="About Me" />
-            <h2 className="about__title">Fluent in Design. Fluent in Code. No Translation Layer Required.</h2>
+            <h2 className="about__title">Who I Am — and Why I'm Built for This Moment</h2>
             <p className="about__body">
-              I'm a Front-End Developer and UX Engineer with 16+ years of professional experience — and a design obsession that started well before that. I built my foundation intentionally: focused every high school elective on visual communication, interned at a local broadcast station, took early college courses while still in high school, and entered Kendall College of Art and Design's advanced track, where I majored in Graphic Design and minored in Web Animation. Summers in college meant real client work — Notre Dame, the South Bend Tribune, a fitness startup — before moving into product design full-time.
+              I'm a systems thinker first, designer second. Sixteen years in, my edge has never been just taste — it's been the ability to map a problem before touching a tool, build with the user and the data in mind, and actually understand the codebase my work lives in.
             </p>
             <p className="about__body">
-              That path led to 10+ years at Tire Rack, where my role grew well beyond design. I've collaborated closely with UX teams, SEO strategists, and analytics leads — running A/B tests, digging into performance data, and learning enough about each discipline to contribute meaningfully rather than just hand work off. I've built design systems from the ground up, led UX redesigns for e-commerce experiences serving millions of users, and developed deep proficiency in HTML, SCSS/SASS with BEM, and AEM. When the company moved to Figma in 2022, I pursued full certification and took ownership of building scalable token-based design systems with Token Studio — working directly with React developers to ship those systems into production.
+              I came in fresh out of college into a design role that leaned on my strengths, but quickly exposed the gaps. I understood design better than most, but conversations around HTML tables, CSS variables, and flexbox often felt like a different language. I knew I wasn't at the level of the people around me yet. So I closed that gap the only way I knew how—by putting in the reps. Conferences, certifications, side projects, asking questions (and then asking more), and constantly refining. That process built something most designers don't have: the instinct to recognize when something is off, and the technical depth to actually fix it.
             </p>
             <p className="about__body">
-              I'm as comfortable in the codebase as I am in the design file, and I stay current — right now that means getting the most out of AI-assisted tools like Claude and FigmaMake to move faster without cutting corners.
+              That background makes me unusually prepared for where the industry is right now. AI is generating code everywhere — and making mistakes everywhere. The real skill isn't prompting. It's knowing how to build the guardrails before you start, review what comes out, and refine it against your brand standards, accessibility guidelines, and the actual framework your site runs on. That's what I do.
+            </p>
+            <p className="about__body">
+              Want the full story — Skip the wall of text. Ask it what you actually want to know{' '}
+              <a href="#/about" className="about__read-more">I'll let the AI take it from here →</a>
             </p>
           </div>
         </div>

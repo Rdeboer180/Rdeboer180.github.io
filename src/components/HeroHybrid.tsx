@@ -98,7 +98,7 @@ const HeroHybrid: React.FC = () => {
             </h1>
 
             <p className="hero-hybrid__body hero-hybrid__reveal hero-hybrid__reveal--4">
-              I’m a Front-End Developer and UX Engineer with 12+ years of experience bridging design and engineering. I specialize in high-fidelity UX/UI design and translating complex product experiences into scalable, component-driven interfaces and sustainable design systems. My work focuses on aligning design and code through reusable patterns, modern front-end architecture, and AI-assisted workflows that improve speed, consistency, and long-term maintainability.
+              I’m a Front-End Developer and UX Engineer, a designer at my core—specializing in high-fidelity UI, scalable design systems, and turning complex experiences into clean, component-driven code.
 
             </p>
 

@@ -1,6 +1,6 @@
 // ============================================
-// How I Work — AI prompt in canvas + FigJam board
-// Sticky notes with curved SVG connectors
+// How I Work — FigJam board with sticky notes
+// and curved SVG connectors
 // ============================================
 
 @import '../variables';
@@ -17,25 +17,6 @@
 
 @keyframes dashFlow {
   to { stroke-dashoffset: -18; }
-}
-
-@keyframes promptCursorBlink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-@keyframes spinnerRotate {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes statusPulse {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; }
-}
-
-@keyframes noteReveal {
-  from { opacity: 0; transform: scale(0.85); }
-  to { opacity: 1; transform: scale(1); }
 }
 
 .how-i-work {
@@ -142,119 +123,6 @@
   }
 
   // ==========================================
-  // AI Prompt — inside the board
-  // ==========================================
-  &__board-prompt {
-    position: absolute;
-    inset: 0;
-    z-index: 12;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: $spacing-xl;
-    background: rgba($color-neutral-dark, 0.92);
-    backdrop-filter: blur(6px);
-    transition: opacity 0.6s ease;
-
-    &--fading {
-      opacity: 0;
-      pointer-events: none;
-    }
-  }
-
-  // Prompt input field
-  &__ai-prompt {
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    gap: $spacing-md;
-    width: 100%;
-    max-width: 100%;
-  }
-
-  &__ai-input {
-    flex: 1;
-    min-height: 56px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1.5px solid $color-primary;
-    border-radius: $radius-xl;
-    padding: $spacing-lg $spacing-xl;
-    font-family: $font-family-primary;
-    font-size: $font-size-body-sm;
-    color: rgba(255, 255, 255, 0.85);
-    line-height: 1.6;
-  }
-
-  &__ai-prompt-text {
-    white-space: pre-wrap;
-    word-break: break-word;
-  }
-
-  &__ai-prompt-cursor {
-    display: inline-block;
-    width: 2px;
-    height: 0.95em;
-    background: $color-primary;
-    margin-left: 1px;
-    vertical-align: middle;
-    animation: promptCursorBlink 0.7s step-end infinite;
-  }
-
-  // Send button
-  &__ai-send {
-    flex-shrink: 0;
-    width: 44px;
-    height: 44px;
-    border-radius: $radius-lg;
-    border: 1.5px solid rgba(255, 255, 255, 0.12);
-    background: rgba(255, 255, 255, 0.04);
-    color: rgba(255, 255, 255, 0.25);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: default;
-    transition: all $transition-fast;
-
-    svg {
-      width: 18px;
-      height: 18px;
-    }
-
-    &--active {
-      background: $color-primary;
-      border-color: $color-primary;
-      color: $color-white;
-      transform: scale(1.05);
-    }
-  }
-
-  // Status area (computing / vibing)
-  &__ai-status {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: $spacing-lg;
-    padding: $spacing-xl 0;
-  }
-
-  &__ai-spinner {
-    width: 32px;
-    height: 32px;
-    border: 2.5px solid rgba(255, 255, 255, 0.08);
-    border-top-color: $color-primary;
-    border-radius: 50%;
-    animation: spinnerRotate 0.8s linear infinite;
-  }
-
-  &__ai-status-text {
-    font-family: $font-family-mono;
-    font-size: $font-size-body-sm;
-    color: rgba(255, 255, 255, 0.5);
-    letter-spacing: 0.05em;
-    animation: statusPulse 1.5s ease-in-out infinite;
-  }
-
-  // ==========================================
   // SVG connector paths
   // ==========================================
   &__connectors {
@@ -317,31 +185,21 @@
     transition: all 0.35s ease;
     transform-origin: center center;
 
-    &--hidden {
-      opacity: 0;
-      transform: scale(0.85);
-      pointer-events: none;
-    }
-
-    &:not(&--hidden) {
-      animation: noteReveal 0.5s ease forwards;
-    }
-
-    &:hover:not(&--hidden) {
+    &:hover {
       border-color: $color-primary-muted;
       transform: scale(1.04);
       z-index: 5;
     }
 
     // Positions — scattered like a real FigJam board
-    &--pos-1 { top: 30px;  left: 20px;  &:not(.how-i-work__note--hidden) { transform: rotate(-2deg); } }
-    &--pos-2 { top: 15px;  left: 220px; &:not(.how-i-work__note--hidden) { transform: rotate(1.5deg); } }
-    &--pos-3 { top: 130px; left: 340px; &:not(.how-i-work__note--hidden) { transform: rotate(-1deg); } }
-    &--pos-4 { top: 200px; left: 75px;  &:not(.how-i-work__note--hidden) { transform: rotate(2deg); } }
-    &--pos-5 { top: 290px; left: 270px; &:not(.how-i-work__note--hidden) { transform: rotate(-1.5deg); } }
+    &--pos-1 { top: 30px;  left: 20px;  transform: rotate(-2deg); }
+    &--pos-2 { top: 15px;  left: 220px; transform: rotate(1.5deg); }
+    &--pos-3 { top: 130px; left: 340px; transform: rotate(-1deg); }
+    &--pos-4 { top: 200px; left: 75px;  transform: rotate(2deg); }
+    &--pos-5 { top: 290px; left: 270px; transform: rotate(-1.5deg); }
 
     // Active state
-    &--active:not(&--hidden) {
+    &--active {
       border-color: $color-primary;
       background: $color-primary-light;
       animation: stickyGlow 2.5s ease-in-out infinite;
@@ -353,7 +211,7 @@
     }
 
     // Complete state
-    &--complete:not(&--hidden) {
+    &--complete {
       border-color: $color-primary;
       background: rgba($color-primary-light, 0.4);
 
@@ -439,11 +297,6 @@
     position: absolute;
     z-index: 1;
     pointer-events: none;
-    transition: opacity 0.5s ease;
-
-    &--hidden {
-      opacity: 0 !important;
-    }
 
     &--lightbulb {
       top: 105px;
@@ -680,11 +533,6 @@
       &--pos-4 { top: 190px; left: 10%; }
       &--pos-5 { top: 270px; left: 45%; }
     }
-
-    &__ai-input {
-      font-size: $font-size-caption;
-      padding: $spacing-md $spacing-lg;
-    }
   }
 }
 
@@ -703,20 +551,5 @@
     }
 
     &__connectors, &__cursor, &__deco { display: none; }
-
-    &__board-prompt {
-      padding: $spacing-md;
-    }
-
-    &__ai-input {
-      font-size: 11px;
-      min-height: 48px;
-      padding: $spacing-sm $spacing-md;
-    }
-
-    &__ai-send {
-      width: 36px;
-      height: 36px;
-    }
   }
 }

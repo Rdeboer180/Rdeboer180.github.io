@@ -1,0 +1,424 @@
+// ============================================
+// About Page — Chat-style interactive prompt
+// Full-width blog layout, no browser chrome
+// ============================================
+
+@import '../variables';
+
+// ==========================================
+// Animations
+// ==========================================
+@keyframes aboutThinkingPulse {
+  0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+  40% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes aboutMsgFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @keyframes aboutThinkingPulse { 0%, 100% { opacity: 1; transform: none; } }
+  @keyframes aboutMsgFadeIn { from { opacity: 1; transform: none; } }
+}
+
+.about-page {
+  min-height: 100vh;
+  background: $color-white;
+  font-family: $font-family-primary;
+
+  // ==========================================
+  // Navigation
+  // ==========================================
+  &__nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: $z-index-sticky;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $spacing-xl $spacing-3xl;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid $color-border-light;
+  }
+
+  &__nav-logo {
+    font-family: $font-family-heading;
+    font-size: $font-size-body;
+    font-weight: $font-weight-bold;
+    color: $color-neutral-dark;
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+
+  &__nav-back {
+    font-size: $font-size-body-sm;
+    color: $color-neutral-muted;
+    text-decoration: none;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  // ==========================================
+  // Hero — compact
+  // ==========================================
+  &__hero {
+    padding: 130px 0 $spacing-2xl;
+    background: $color-white;
+    border-bottom: 1px solid $color-neutral-light;
+  }
+
+  &__hero-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 $container-padding-x;
+  }
+
+  &__hero-title {
+    font-family: $font-family-heading;
+    font-size: $font-size-h1;
+    font-weight: $font-weight-bold;
+    color: $color-neutral-dark;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  &__hero-role {
+    font-family: $font-family-primary;
+    font-size: $font-size-body-lg;
+    color: $color-primary;
+    font-weight: $font-weight-medium;
+    margin-top: $spacing-sm;
+  }
+
+  &__hero-body {
+    font-family: $font-family-primary;
+    font-size: $font-size-body-lg;
+    line-height: 1.75;
+    color: $color-neutral-standard;
+    margin-top: $spacing-xl;
+    max-width: 800px;
+  }
+
+  // ==========================================
+  // Chat section
+  // ==========================================
+  &__chat {
+    padding: $spacing-3xl 0 120px;
+    min-height: 60vh;
+  }
+
+  &__chat-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 $container-padding-x;
+  }
+
+  // "Interactive Component" tag
+  &__chat-tag {
+    display: inline-block;
+    font-family: $font-family-mono;
+    font-size: $font-size-caption;
+    font-weight: $font-weight-medium;
+    color: $color-primary;
+    background: $color-primary-light;
+    padding: 4px $spacing-md;
+    border-radius: $radius-sm;
+    letter-spacing: 0.04em;
+    margin-bottom: $spacing-2xl;
+  }
+
+  // ==========================================
+  // Thread — scrollable conversation
+  // ==========================================
+  &__chat-thread {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2xl;
+    margin-bottom: $spacing-2xl;
+  }
+
+  // ==========================================
+  // Messages
+  // ==========================================
+  &__msg {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+
+    // Dynamic messages animate in
+    &:nth-child(n+3) {
+      animation: aboutMsgFadeIn 0.35s ease forwards;
+    }
+  }
+
+  &__msg-label {
+    font-family: $font-family-mono;
+    font-size: $font-size-caption;
+    font-weight: $font-weight-semibold;
+    letter-spacing: 0.03em;
+    padding-left: 2px;
+
+    .about-page__msg--user & {
+      color: $color-neutral-muted;
+    }
+
+    .about-page__msg--ai & {
+      color: $color-primary;
+    }
+  }
+
+  &__msg-bubble {
+    border-radius: $radius-lg;
+    padding: $spacing-xl;
+
+    p {
+      font-family: $font-family-primary;
+      font-size: $font-size-body;
+      line-height: $line-height-body-relaxed;
+      margin-bottom: $spacing-md;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    strong {
+      font-weight: $font-weight-semibold;
+      color: $color-neutral-dark;
+    }
+
+    code {
+      font-family: $font-family-mono;
+      font-size: 0.9em;
+      color: $color-primary-dark;
+      background: $color-primary-light;
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    a {
+      color: $color-primary;
+      text-decoration: none;
+      font-weight: $font-weight-medium;
+
+      &:hover {
+        color: $color-primary-dark;
+      }
+    }
+
+    // User bubble
+    &--user {
+      background: $color-white;
+      color: $color-neutral-standard;
+    }
+
+    // AI bubble
+    &--ai {
+      background: $color-white;
+      border-left: 3px solid $color-primary;
+      color: $color-neutral-standard;
+      box-shadow: $shadow-sm;
+    }
+
+    // Followup — lighter
+    &--followup {
+      border-left-color: $color-neutral-light;
+      box-shadow: none;
+
+      p {
+        font-size: $font-size-body-sm;
+        color: $color-neutral-muted;
+        font-style: italic;
+      }
+    }
+  }
+
+  // ==========================================
+  // Options list (inside AI bubble)
+  // ==========================================
+  &__options {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: $spacing-xl;
+    padding-top: $spacing-lg;
+    border-top: 1px solid $color-neutral-light;
+  }
+
+  &__option {
+    display: flex;
+    align-items: baseline;
+    gap: $spacing-md;
+    padding: $spacing-sm $spacing-md;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    border-radius: $radius-sm;
+    transition: background $transition-fast;
+
+    &:hover:not(:disabled) {
+      background: $color-primary-light;
+    }
+
+    &:disabled {
+      cursor: default;
+      opacity: 0.5;
+    }
+  }
+
+  &__option-num {
+    font-family: $font-family-mono;
+    font-size: $font-size-body-sm;
+    font-weight: $font-weight-bold;
+    color: $color-primary;
+    min-width: 18px;
+    flex-shrink: 0;
+  }
+
+  &__option-text {
+    font-family: $font-family-primary;
+    font-size: $font-size-body-sm;
+    color: $color-neutral-standard;
+    line-height: $line-height-body-sm;
+  }
+
+  // Compact variant — no border-top, less margin
+  &__options--compact {
+    margin-top: $spacing-md;
+    padding-top: 0;
+    border-top: none;
+  }
+
+  // ==========================================
+  // Thinking dots
+  // ==========================================
+  &__thinking {
+    display: flex;
+    gap: 5px;
+    padding: $spacing-xs 0;
+  }
+
+  &__thinking-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: $color-primary;
+    animation: aboutThinkingPulse 1.2s ease-in-out infinite;
+
+    &:nth-child(2) { animation-delay: 0.15s; }
+    &:nth-child(3) { animation-delay: 0.3s; }
+  }
+
+  // ==========================================
+  // Input row — sticky at bottom of viewport
+  // ==========================================
+  &__chat-input-row {
+    position: sticky;
+    bottom: $spacing-xl;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    padding: $spacing-lg $spacing-xl;
+    background: $color-white;
+    border: 1px solid $color-neutral-light;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-lg;
+    transition: border-color $transition-fast, box-shadow $transition-fast;
+
+    &:focus-within {
+      border-color: $color-primary;
+      box-shadow: $shadow-lg, 0 0 0 3px rgba($color-primary, 0.1);
+    }
+  }
+
+  &__chat-arrow {
+    font-family: $font-family-mono;
+    font-size: $font-size-body;
+    font-weight: $font-weight-bold;
+    color: $color-primary;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  &__chat-input {
+    flex: 1;
+    border: none;
+    background: none;
+    font-family: $font-family-mono;
+    font-size: $font-size-body-sm;
+    color: $color-neutral-dark;
+    outline: none;
+    caret-color: $color-primary;
+
+    &::placeholder {
+      color: $color-neutral-muted;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+    }
+  }
+}
+
+// ==========================================
+// Responsive
+// ==========================================
+@media (max-width: $breakpoint-md) {
+  .about-page {
+    &__nav {
+      padding: $spacing-lg $spacing-xl;
+    }
+
+    &__hero {
+      padding-top: 100px;
+    }
+
+    &__hero-title {
+      font-size: $font-size-h2;
+    }
+
+    &__msg-bubble {
+      padding: $spacing-lg;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .about-page {
+    &__hero-title {
+      font-size: $font-size-h3;
+    }
+
+    &__chat {
+      padding: $spacing-xl 0 $spacing-3xl;
+    }
+
+    &__msg-bubble {
+      padding: $spacing-md;
+
+      p {
+        font-size: $font-size-body-sm;
+        line-height: $line-height-body-sm;
+      }
+    }
+
+    &__option {
+      padding: $spacing-xs $spacing-sm;
+    }
+
+    &__chat-input-row {
+      padding: $spacing-md $spacing-lg;
+    }
+  }
+}

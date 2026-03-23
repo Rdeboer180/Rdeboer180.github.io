@@ -11,9 +11,11 @@ import Testimonials from './components/Testimonials';
 import FAQ from './components/FAQ';
 import DesignSystem from './components/DesignSystem';
 import CaseStudyPage from './components/CaseStudyPage';
+import AboutPage from './components/AboutPage';
 
 function getRoute(hash: string): { page: string; slug?: string } {
   if (hash === '#/design-system') return { page: 'design-system' };
+  if (hash === '#/about') return { page: 'about' };
   if (hash.startsWith('#/work/')) return { page: 'case-study', slug: hash.replace('#/work/', '') };
   return { page: 'home' };
 }
@@ -36,6 +38,10 @@ function App() {
 
   if (route.page === 'design-system') {
     return <DesignSystem />;
+  }
+
+  if (route.page === 'about') {
+    return <AboutPage />;
   }
 
   if (route.page === 'case-study' && route.slug) {

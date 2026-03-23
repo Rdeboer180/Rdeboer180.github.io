@@ -1,6 +1,5 @@
 // ============================================
-// About Section
-// Ref: about-page-with-bio-light.png, stats-bar-with-metrics-light.png
+// About Section (Homepage — cover letter style)
 // ============================================
 
 @import '../variables';
@@ -40,6 +39,18 @@
 
     &:last-child {
       margin-bottom: 0;
+    }
+  }
+
+  &__read-more {
+    color: $color-primary;
+    font-weight: $font-weight-semibold;
+    text-decoration: none;
+    transition: color $transition-fast;
+    display:block;
+
+    &:hover {
+      color: $color-primary-dark;
     }
   }
 
