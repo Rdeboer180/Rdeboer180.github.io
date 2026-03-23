@@ -23,8 +23,12 @@ function App() {
 
   useEffect(() => {
     const handleHash = () => {
-      setRoute(getRoute(window.location.hash));
-      window.scrollTo(0, 0);
+      const newRoute = getRoute(window.location.hash);
+      setRoute(newRoute);
+      // Only scroll to top for page navigations, not anchor links on home
+      if (newRoute.page !== 'home') {
+        window.scrollTo(0, 0);
+      }
     };
     window.addEventListener('hashchange', handleHash);
     return () => window.removeEventListener('hashchange', handleHash);

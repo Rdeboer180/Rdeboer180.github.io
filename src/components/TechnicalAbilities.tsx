@@ -79,7 +79,7 @@ const abilities: { category: string; skills: Skill[] }[] = [
 
 const TechnicalAbilities: React.FC = () => {
   return (
-    <section className="technical">
+    <section id="technical" className="technical">
       <div className="technical__container">
         <div className="technical__header">
           <SectionBadge icon={<CodeIcon />} label="Technical" />

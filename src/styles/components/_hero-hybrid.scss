@@ -398,7 +398,8 @@
   &__proof-text {
     font-family: $font-family-primary;
     font-size: $font-size-body-sm;
-    color: $color-neutral-muted;
+    font-weight: $font-weight-bold;
+    color: $color-neutral-dark;
     line-height: 1.4;
   }
 

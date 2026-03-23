@@ -68,8 +68,11 @@ const HeroHybrid: React.FC = () => {
         <div className="hero-hybrid__nav-logo">Ryan DeBoer</div>
         <div className="hero-hybrid__nav-links">
           <a href="#about">About</a>
-          <a href="#projects">Work</a>
+          <a href="#how-i-work">How I Work</a>
           <a href="#skills">Skills</a>
+          <a href="#projects">Work</a>
+          <a href="#testimonials">Testimonials</a>
+          <a href="#faq">FAQ</a>
           <a href="mailto:rdeboer180@gmail.com" className="hero-hybrid__nav-cta">Get in touch</a>
         </div>
       </nav>
@@ -160,10 +163,6 @@ const HeroHybrid: React.FC = () => {
           </div>
           <div className="hero-hybrid__proof-divider" />
           <div className="hero-hybrid__proof-right">
-            <div className="hero-hybrid__proof-stars">
-              <span>★★★★★</span>
-              <span className="hero-hybrid__proof-rating">5.0</span>
-            </div>
             <p className="hero-hybrid__proof-text">
               Reviews from those I have worked with
             </p>

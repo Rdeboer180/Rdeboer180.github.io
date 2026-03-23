@@ -316,7 +316,7 @@ const HowIWork: React.FC = () => {
   };
 
   return (
-    <section className="how-i-work" ref={sectionRef}>
+    <section id="how-i-work" className="how-i-work" ref={sectionRef}>
       <div className="how-i-work__header">
         <SectionBadge icon={<ProcessIcon />} label="Process" />
         <h2 className="how-i-work__title">I Don't Just Design. I Document, Ship, and Prove It.</h2>
