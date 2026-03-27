@@ -1,0 +1,219 @@
+================================================================================
+RYAN DEBOER — PORTFOLIO SITE COPY REVIEW
+================================================================================
+Generated: March 25, 2026
+Use this document to review and revise all site copy. When ready, paste
+revisions back and we'll apply them to each source file.
+
+Each section is labeled with its SOURCE FILE and LOCATION so changes can
+be mapped back precisely.
+
+
+================================================================================
+1. HOMEPAGE HERO
+
+Source: src/components/HeroHybrid.tsx
+
+================================================================================
+
+[Role subtitle — line 86]
+Senior Web Designer / Design Strategist
+
+[Rotating headline titles — lines 18-22]
+Systems Thinker
+Product Designer
+High-Fidelity UX Designer
+
+[Headline — UI update: H1 / primary hero statement]
+I’m a systems thinker, product designer, and high-fidelity UX designer who turns complex products into usable experiences.
+
+[Body paragraph — lines 97-99]
+I design and build high-fidelity product experiences with a systems-first approach—combining UX, front-end coding, and design systems to turn complex ideas into scalable, production-ready solutions.
+
+[Social proof line — NEW UI ELEMENT]
+[Placement: directly under body paragraph, above “Core Proficiencies / Testimonials” section]
+Known for aligning teams, making thoughtful decisions, and delivering work that holds up in production.
+
+[Social proof band label — line 148]
+Core Proficiencies
+
+[Social proof band text — lines 163-164]
+Reviews from those I have worked with
+
+[Social proof CTA — line 167]
+View Testimonials
+
+⸻
+
+================================================================================
+
+2. HOMEPAGE — ABOUT ME SECTION
+
+Source: src/components/About.tsx
+
+================================================================================
+
+[Section badge label]
+About Me
+
+[Section title — line 35]
+Who I Am — and Why I’m Built for This Moment
+
+[Paragraph 1]
+I’m a systems thinker first, designer second. Sixteen years in, my edge has never been just taste—it’s been the ability to define the problem before touching a tool, design with real constraints in mind, and understand the codebase my work lives in.
+
+[Paragraph 2]
+Early in my career, I was hired for my design instincts, visual craft, and strategic thinking. But I knew that to become the kind of designer I wanted to be, I needed deeper technical fluency. So I closed that gap the only way I knew how: by putting in the reps. Through years of asking questions, self-exploration, certification courses, front-end conferences, and constant refinement, I built the technical depth to bring those ideas to life online. That process sharpened one of my biggest strengths—the ability to recognize when something is off, understand why, and actually fix it.
+
+[Paragraph 3]
+That’s exactly why I feel so well matched for where the industry is now. AI can generate interfaces and code faster than ever—but it also introduces risk. The real skill isn’t prompting. It’s knowing how to set constraints, evaluate what’s produced, and refine it against real-world standards—performance, accessibility, brand, and system integrity. That’s where I do my best work.
+
+[Paragraph 4 / CTA]
+There’s more to how I think than what fits on a page—ask anything about my work, process, or approach.
+Dig deeper →
+
+[Stats bar]
+16+ Years designing professionally
+500+ Projects delivered
+4 Retail brands supported
+50+ Design system components shipped
+
+⸻
+
+================================================================================
+
+3. ABOUT ME PAGE — HERO
+
+Source: src/components/AboutPage.tsx
+
+================================================================================
+
+[Page title — line 274]
+Who is Ryan?
+
+[Role subtitle — line 275]
+Senior Web Designer / UX Engineer
+
+[Hero paragraph 1]
+I’m a designer and developer who leads with family first—my wife Stephanie, our two kids, and a life outside of work that keeps me grounded. I’ve always believed the best work comes from people who have something real to come back to.
+
+[Hero paragraph 2]
+Outside of work, I’m wired like an athlete. I’ve run the same dynasty fantasy football league for over a decade—not just for the competition, but for the systems behind it. Studying patterns, refining strategy, and building a playbook based on what the data actually shows. That mindset carries directly into how I work.
+
+[Hero paragraph 3]
+I approach design the same way: grounded in fundamentals, shaped by real-world constraints, and constantly refined through iteration. Over time, that’s evolved into systems thinking—understanding not just what to design, but how it holds up in production, scales across teams, and adapts over time.
+
+[Hero paragraph 4]
+What excites me about where things are now is the speed. AI has changed how quickly ideas can be built and tested—but it hasn’t replaced the need for direction. If anything, it’s made it more important. I see it as a multiplier: a way to explore more, test faster, and refine better—as long as you know what you’re aiming for.
+
+[Hero paragraph 5]
+I do my best work on teams that value high standards, real collaboration, and an environment where thoughtful work can move quickly and actually make it into production.
+
+⸻
+
+================================================================================
+
+4–5. ABOUT PAGE — INTERACTIVE Q&A
+
+Source: src/components/AboutPage.tsx
+
+================================================================================
+
+[No structural UI changes required]
+
+(All Q&A responses updated for clarity, brevity, and non-repetition — use latest revised versions from prior step)
+
+⸻
+
+================================================================================
+
+6. HOW I WORK — PROCESS
+
+Source: src/components/HowIWork.tsx
+
+================================================================================
+
+[Section badge label]
+How I Work
+
+[Section title]
+My Design & Development Process
+
+[Section intro — NEW UI ADDITION]
+My process isn’t rigid—it adapts to the problem. But the goal is always the same: align early, design with intent, and ship work that holds up in production.
+
+(All steps updated — use finalized step content)
+
+⸻
+
+================================================================================
+
+7. STRENGTHS
+
+Source: src/components/Skills.tsx
+
+================================================================================
+
+[Section badge label]
+Strengths
+
+[Section title]
+What I bring beyond the tools
+
+[Section subtitle]
+Tools help ship the work. These are the strengths that shape whether the work was worth shipping.
+
+[Section intro — NEW UI ADDITION]
+My value isn’t just in what I can do—it’s in how I help teams make better decisions and ship better work.
+
+(All categories + descriptors updated — use finalized content)
+
+⸻
+
+================================================================================
+
+8. TECHNICAL ABILITIES
+
+Source: src/components/TechnicalAbilities.tsx
+
+================================================================================
+
+[Section badge label]
+Technical
+
+[Section title]
+Tools & Technologies
+
+[Section subtitle]
+A toolkit built over 16+ years of hands-on work across design, front-end development, and systems thinking.
+
+(All categories updated to Core / Supporting structure)
+
+⸻
+
+================================================================================
+
+9. FAQ
+
+Source: src/components/FAQ.tsx
+
+================================================================================
+
+[Section eyebrow]
+FAQ
+
+[Section title]
+Common questions
+
+[Section intro]
+Answers to the things collaborators usually ask before we start working together.
+
+(All answers updated for clarity, consistency, and tone)
+
+⸻
+
+================================================================================
+
+✅ FINAL STATUS
+
+================================================================================

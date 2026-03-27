@@ -17,12 +17,16 @@ import HomepageTargeted from './components/HomepageTargeted';
 import sleeperContent from './data/homepage-sleeper';
 import yahooContent from './data/homepage-yahoo';
 
-function getRoute(hash: string): { page: string; slug?: string } {
+function getRoute(hash: string): { page: string; slug?: string; anchor?: string } {
+  // Extract anchor fragment from compound hashes like #/homepage_sleeper#about
+  const anchorMatch = hash.match(/^#\/[^#]+(#.+)$/);
+  const anchor = anchorMatch ? anchorMatch[1].slice(1) : undefined;
+
   if (hash === '#/design-system') return { page: 'design-system' };
   if (hash === '#/about') return { page: 'about' };
   if (hash === '#/resume') return { page: 'resume' };
-  if (hash === '#/homepage_sleeper' || hash.startsWith('#/homepage_sleeper#')) return { page: 'homepage_sleeper' };
-  if (hash === '#/homepage_yahoo' || hash.startsWith('#/homepage_yahoo#')) return { page: 'homepage_yahoo' };
+  if (hash === '#/homepage_sleeper' || hash.startsWith('#/homepage_sleeper#')) return { page: 'homepage_sleeper', anchor };
+  if (hash === '#/homepage_yahoo' || hash.startsWith('#/homepage_yahoo#')) return { page: 'homepage_yahoo', anchor };
   if (hash.startsWith('#/work/')) return { page: 'case-study', slug: hash.replace('#/work/', '') };
   return { page: 'home' };
 }
@@ -30,12 +34,26 @@ function getRoute(hash: string): { page: string; slug?: string } {
 function App() {
   const [route, setRoute] = useState(() => getRoute(window.location.hash));
 
+  // Handle anchor scroll on initial load
+  useEffect(() => {
+    if (route.anchor) {
+      requestAnimationFrame(() => {
+        document.getElementById(route.anchor!)?.scrollIntoView({ behavior: 'smooth' });
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   useEffect(() => {
     const handleHash = () => {
       const newRoute = getRoute(window.location.hash);
       setRoute(newRoute);
-      // Only scroll to top for page navigations, not anchor links on home
-      if (newRoute.page !== 'home') {
+      if (newRoute.anchor) {
+        // Scroll to anchor element after render
+        requestAnimationFrame(() => {
+          document.getElementById(newRoute.anchor!)?.scrollIntoView({ behavior: 'smooth' });
+        });
+      } else if (newRoute.page !== 'home') {
         window.scrollTo(0, 0);
       }
     };
