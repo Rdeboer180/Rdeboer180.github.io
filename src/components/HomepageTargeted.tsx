@@ -92,7 +92,11 @@ const TargetedHero: React.FC<{ content: TargetedHomepageContent }> = ({ content 
       <div className="hero-hybrid__content">
         <div className="hero-hybrid__grid">
           <div className="hero-hybrid__text">
-            <p className="hero-hybrid__eyebrow hero-hybrid__reveal hero-hybrid__reveal--1">{hero.eyebrow}</p>
+            <p className="hero-hybrid__eyebrow hero-hybrid__reveal hero-hybrid__reveal--1">
+              {hero.eyebrow.includes('but') ? (
+                <>{hero.eyebrow.split('but')[0]}<br /><span style={{whiteSpace: 'nowrap'}}>but{hero.eyebrow.split('but')[1]}</span></>
+              ) : hero.eyebrow}
+            </p>
             <div className="hero-hybrid__typed-wrap hero-hybrid__reveal hero-hybrid__reveal--2">
               <span className="hero-hybrid__typed">{displayText}<span className="hero-hybrid__cursor" /></span>
             </div>

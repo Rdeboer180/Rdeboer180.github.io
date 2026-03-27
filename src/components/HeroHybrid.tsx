@@ -79,7 +79,7 @@ const HeroHybrid: React.FC = () => {
           {/* Left: Clean animated text */}
           <div className="hero-hybrid__text">
             <p className="hero-hybrid__eyebrow hero-hybrid__reveal hero-hybrid__reveal--1">
-              Senior Web Designer by title but I&rsquo;m also a
+              Senior Web Designer by title<br /><span style={{whiteSpace: 'nowrap'}}>but I&rsquo;m also a</span>
             </p>
 
             <div className="hero-hybrid__typed-wrap hero-hybrid__reveal hero-hybrid__reveal--2">
