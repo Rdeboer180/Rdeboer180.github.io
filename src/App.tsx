@@ -16,6 +16,7 @@ import ResumePage from './components/ResumePage';
 import HomepageTargeted from './components/HomepageTargeted';
 import sleeperContent from './data/homepage-sleeper';
 import yahooContent from './data/homepage-yahoo';
+import fantasypointsContent from './data/homepage-fantasypoints';
 
 function getRoute(hash: string): { page: string; slug?: string; anchor?: string } {
   // Extract anchor fragment from compound hashes like #/homepage_sleeper#about
@@ -27,6 +28,7 @@ function getRoute(hash: string): { page: string; slug?: string; anchor?: string 
   if (hash === '#/resume') return { page: 'resume' };
   if (hash === '#/homepage_sleeper' || hash.startsWith('#/homepage_sleeper#')) return { page: 'homepage_sleeper', anchor };
   if (hash === '#/homepage_yahoo' || hash.startsWith('#/homepage_yahoo#')) return { page: 'homepage_yahoo', anchor };
+  if (hash === '#/homepage_fantasypoints' || hash.startsWith('#/homepage_fantasypoints#')) return { page: 'homepage_fantasypoints', anchor };
   if (hash.startsWith('#/work/')) return { page: 'case-study', slug: hash.replace('#/work/', '') };
   return { page: 'home' };
 }
@@ -79,6 +81,10 @@ function App() {
 
   if (route.page === 'homepage_yahoo') {
     return <HomepageTargeted content={yahooContent} />;
+  }
+
+  if (route.page === 'homepage_fantasypoints') {
+    return <HomepageTargeted content={fantasypointsContent} />;
   }
 
   if (route.page === 'case-study' && route.slug) {
