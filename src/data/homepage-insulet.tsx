@@ -9,7 +9,7 @@ const insuletContent: TargetedHomepageContent = {
 
   hero: {
     eyebrow: 'Senior Web Designer by title but I\u2019m also a',
-    roles: ['Digital Marketing Specialist', 'Front-End Developer', 'CMS & Email Builder'],
+    roles: ['Design Strategist', 'Front-End Developer', 'Design System Engineer'],
     headline: 'ready to bring 16 years of technical web craft to a brand whose product I\u2019ve depended on for over a decade.',
     body: 'I\u2019m a Senior Web Designer with deep hands-on experience in HTML, CMS platforms, email execution, and design\u2014working at the intersection of marketing, creative, and engineering. I understand regulated industries, I know how to ship compliant digital content fast, and I want to do that work for Insulet.',
   },
@@ -143,7 +143,7 @@ const insuletContent: TargetedHomepageContent = {
   },
 
   footer: {
-    eyebrow: 'Let\u2019s talk about building better digital experiences for people who depend on them',
+    eyebrow: 'Get in touch',
     tagline: 'T1D for 20+ years \u00b7 Omnipod user for 10+ \u00b7 Digital builder for 16',
   },
 };
