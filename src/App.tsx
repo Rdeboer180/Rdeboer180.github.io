@@ -19,6 +19,7 @@ import yahooContent from './data/homepage-yahoo';
 import fantasypointsContent from './data/homepage-fantasypoints';
 import t1dContent from './data/homepage-t1d';
 import insuletContent from './data/homepage-insulet';
+import dynastyNerdsContent from './data/homepage-dynastynerds';
 
 function getRoute(hash: string): { page: string; slug?: string; anchor?: string } {
   // Extract anchor fragment from compound hashes like #/homepage_sleeper#about
@@ -33,6 +34,7 @@ function getRoute(hash: string): { page: string; slug?: string; anchor?: string 
   if (hash === '#/homepage_fantasypoints' || hash.startsWith('#/homepage_fantasypoints#')) return { page: 'homepage_fantasypoints', anchor };
   if (hash === '#/homepage_t1d' || hash.startsWith('#/homepage_t1d#')) return { page: 'homepage_t1d', anchor };
   if (hash === '#/homepage_insulet' || hash.startsWith('#/homepage_insulet#')) return { page: 'homepage_insulet', anchor };
+  if (hash === '#/homepage_dynastynerds' || hash.startsWith('#/homepage_dynastynerds#')) return { page: 'homepage_dynastynerds', anchor };
   if (hash.startsWith('#/work/')) return { page: 'case-study', slug: hash.replace('#/work/', '') };
   return { page: 'home' };
 }
@@ -97,6 +99,10 @@ function App() {
 
   if (route.page === 'homepage_insulet') {
     return <HomepageTargeted content={insuletContent} />;
+  }
+
+  if (route.page === 'homepage_dynastynerds') {
+    return <HomepageTargeted content={dynastyNerdsContent} />;
   }
 
   if (route.page === 'case-study' && route.slug) {
