@@ -42,7 +42,7 @@ const projects: Project[] = [
     role: 'Senior Web Designer / AEM Content Strategist',
     tools: ['Adobe Experience Manager', 'Adobe Target', 'Figma', 'HTML/SCSS', 'Adobe Creative Suite'],
     timeline: '10+ years',
-    featured: '/images/work/tire-rack-winter/winter-homepage-desktop.png',
+    featured: '/images/work/tire-rack-winter/CS_thumbnail_AEM_Winterization.jpg',
     brief: 'Since 2013, I have owned the full seasonal content strategy for Tire Rack\'s high-traffic landing pages — designing, authoring, and deploying a winterized version of the site each fall that targets cold-weather customers across the homepage, tire pages, delivery pages, research content, and wheel adjustment pages. Over the years this process evolved from manual content updates into a scalable AEM Experience Fragment system capable of swapping 20+ components across the site simultaneously.',
     challenge: 'The core challenge was building a maintainable, scalable system that could serve meaningfully different content to winter-climate customers and southern-states customers without duplicating pages or confusing search engines. Early seasonal updates were manual and time-intensive. As Tire Rack\'s digital footprint grew, the process needed to scale — requiring new fragment types, accessible component variants, Adobe Target audience rules, and close collaboration with the Analytics, Photography, and SEO teams to ensure consistency, searchability, and conversion across every variant. I also needed to document the system clearly enough to onboard and mentor junior designers into the authoring workflow.',
     images: [
@@ -132,7 +132,7 @@ const projects: Project[] = [
     role: 'Brand & Web Designer',
     tools: ['Figma', 'WordPress', 'Elementor', 'WPForms', 'Yoast SEO', 'Adobe Illustrator'],
     timeline: '4 months',
-    featured: '/images/work/heatherwood/heatherwood-final-desktop-01.png',
+    featured: '/images/work/heatherwood/CS_thumbnail_Heatherwood.jpg',
     brief: 'Partnered with Deborah Clements, founder of a 30-year family-owned equestrian academy in Granger, Indiana, to build a complete digital brand from scratch. The strategy centered on capturing Heatherwood\u2019s key demographic \u2014 families with children ages 5\u201315 across the Michiana area \u2014 through SEO-leveraged service pages that double as search entry points, FAQ content structured around the real questions parents ask before enrolling, and a conversion path that routes every visitor to a form submission. Each service page was designed as its own landing page with a contact form sidebar, because analytics showed that families arrive searching for a specific activity \u2014 not the brand name.',
     challenge: 'Heatherwood had operated for decades on word-of-mouth alone. There was no brand system, no web presence, and no way for families to discover or enroll online. The core challenge was three-fold: build a brand identity that captures the warmth of a family environment while competing visually with larger commercial programs; architect a site where each service \u2014 riding lessons, summer camps, boarding, birthday parties, trail rides \u2014 functions as an independent SEO entry point with its own conversion path; and deliver the entire system in a way that a non-technical owner can manage independently, with zero ongoing agency dependency. Every headline needed to work for both the parent scanning the page and the search engine indexing it.',
     images: [
@@ -212,7 +212,7 @@ const projects: Project[] = [
     role: 'Senior Web Designer / UX Engineer',
     tools: ['Figma', 'FigJam', 'HTML/CSS', 'Adobe Creative Suite'],
     timeline: '6 months',
-    featured: '/images/work/tire-categories/featured.png',
+    featured: '/images/work/tire-categories/CS_thumbnail_TireCategories.jpg',
     brief: 'Tire Rack\u2019s category pages were the primary entry point for millions of customers navigating one of the largest online tire retailers. The existing system relied on outdated layouts, inconsistent iconography, and a content structure that didn\u2019t reflect how real users shop for tires. The project spanned wireframing, requirements documentation, custom icon design, and full high-fidelity mockups across desktop and mobile.',
     challenge: 'The core challenge was rethinking how tire categories are presented \u2014 from a flat, text-heavy page to a structured, visually intuitive system that reduces decision fatigue. Customers needed to quickly identify the right tire type for their driving conditions without reading walls of spec text. Each category required a distinct visual identity through custom iconography while maintaining consistency across the system.',
     images: [
@@ -249,7 +249,7 @@ const projects: Project[] = [
     role: 'Senior Web Designer / UX Engineer',
     tools: ['Figma', 'FigJam', 'HTML/CSS', 'JavaScript'],
     timeline: '12+ months',
-    featured: '/images/work/wheelrack/wheelrack-final-desktop-01.png',
+    featured: '/images/work/wheelrack/CS_thumbnail_wheelrack_designSystem.jpg',
     brief: 'WheelRack is Tire Rack\u2019s dedicated aftermarket wheel shopping experience, served across multiple retail partner brands (PitStop, OrderTire, AAFES Exchange, AutoNation). The project required a ground-up revamp and replatform \u2014 building a shared design system from scratch, designing the full customer journey from vehicle selection through wheel details, and delivering responsive high-fidelity mockups with detailed UI behavior documentation for every state and edge case.',
     challenge: 'The existing WheelRack experience was fragmented, visually inconsistent across partner sites, and lacked a coherent design system. The vehicle selector used a clunky dropdown interface with no autocomplete. Search results had no wheel visualizer. Product detail pages couldn\u2019t handle complex fitment scenarios like front/rear sizing or unavailable finish combinations. Every interaction needed to be redesigned from wireframe through high-fidelity \u2014 across desktop, tablet, and mobile \u2014 with annotated UI behavior specs for engineering handoff.',
     images: [
