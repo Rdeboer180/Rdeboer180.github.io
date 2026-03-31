@@ -35,7 +35,6 @@ const projects: Project[] = [
   // =============================================
   {
     slug: 'tire-rack-winter',
-    hidden: true,
     client: 'Tire Rack',
     title: 'Seasonal Site Winterization — AEM Experience Fragment System',
     year: '2013–Present',
