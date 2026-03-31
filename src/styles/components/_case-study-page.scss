@@ -119,11 +119,14 @@
     margin-bottom: $spacing-4xl;
     border-radius: $card-border-radius-lg;
     overflow: hidden;
+    aspect-ratio: 2 / 1;
     @include fade-in-up(0.2s);
 
     img {
       width: 100%;
-      height: auto;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
       display: block;
     }
   }
@@ -233,16 +236,16 @@
     }
   }
 
-  // Clickable image wrapper with viewport cap
+  // Clickable image wrapper with 2:1 crop
   &__img-wrap {
     position: relative;
     overflow: hidden;
     cursor: zoom-in;
-    max-height: 80vh;
+    aspect-ratio: 2 / 1;
 
     img {
       width: 100%;
-      max-height: 80vh;
+      height: 100%;
       object-fit: cover;
       object-position: top;
       display: block;
