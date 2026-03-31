@@ -26,6 +26,7 @@ export interface Project {
   images: ProjectImage[];
   metrics: ProjectMetric[];
   resultsNote?: string;
+  hidden?: boolean;
 }
 
 const projects: Project[] = [
@@ -34,6 +35,7 @@ const projects: Project[] = [
   // =============================================
   {
     slug: 'tire-rack-winter',
+    hidden: true,
     client: 'Tire Rack',
     title: 'Seasonal Site Winterization — AEM Experience Fragment System',
     year: '2013–Present',

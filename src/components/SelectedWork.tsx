@@ -23,7 +23,7 @@ const SelectedWork: React.FC = () => {
         </div>
 
         <div className="selected-work__list">
-          {projects.map((project, index) => (
+          {projects.filter(p => !p.hidden).map((project, index) => (
             <a
               key={project.slug}
               href={`#/work/${project.slug}`}
