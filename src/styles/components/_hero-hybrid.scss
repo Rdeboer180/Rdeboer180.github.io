@@ -302,6 +302,55 @@
   }
 
   // ==========================================
+  // Floating UI Toolkit Overlays
+  // ==========================================
+  &__ui-element {
+    position: absolute;
+    z-index: 10;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-lg;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    // Code editor — top-right, overlapping circle edge
+    &--code {
+      width: 200px;
+      top: -10px;
+      right: -40px;
+      animation-delay: 0.8s;
+      animation: fadeInUp 0.8s ease-out 0.8s forwards,
+                 uiDrift1 6s ease-in-out 1.6s infinite;
+    }
+
+    // Claude prompt — bottom-left
+    &--prompt {
+      width: 275px;
+      bottom: 25px;
+      animation-delay: 1s;
+      animation: fadeInUp 0.8s ease-out 1s forwards,
+                 uiDrift2 7s ease-in-out 1.8s infinite;
+    }
+
+    // Illustrator workspace — bottom-right
+    &--illustrator {
+      width: 160px;
+      bottom: -10px;
+      right: -70px;
+      animation-delay: 1.2s;
+      animation: fadeInUp 0.8s ease-out 1.2s forwards,
+                 uiDrift3 8s ease-in-out 2s infinite;
+    }
+  }
+
+  // ==========================================
   // Social Proof Band — full-width separator
   // ==========================================
   &__proof-band {
@@ -471,6 +520,12 @@
       width: 304px;
       height: 304px;
     }
+
+    &__ui-element {
+      &--code { width: 160px; right: -30px; }
+      &--prompt { width: 150px; left: -40px; }
+      &--illustrator { width: 130px; }
+    }
   }
 }
 
@@ -519,6 +574,10 @@
 
     &__visual {
       order: -1;
+    }
+
+    &__ui-element {
+      display: none;
     }
 
     &__image-container {

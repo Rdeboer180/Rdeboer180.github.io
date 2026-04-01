@@ -120,6 +120,16 @@ const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ slug }) => {
             <p>{project.brief}</p>
             <h2 className="cs__section-heading">The Challenge</h2>
             <p>{project.challenge}</p>
+            {project.ownership && project.ownership.length > 0 && (
+              <>
+                <h2 className="cs__section-heading">What I Owned</h2>
+                <ul className="cs__ownership-list">
+                  {project.ownership.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>
+              </>
+            )}
           </div>
           <aside className="cs__overview-meta">
             <div className="cs__meta-block">

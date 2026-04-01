@@ -111,7 +111,7 @@ const HeroHybrid: React.FC = () => {
             </div>
           </div>
 
-          {/* Right: Profile image (kept from original) */}
+          {/* Right: Profile image with UI overlay elements */}
           <div className="hero-hybrid__visual">
             <div className="hero-hybrid__image-container">
               <div className="hero-hybrid__image-wrapper">
@@ -132,6 +132,17 @@ const HeroHybrid: React.FC = () => {
                     className="hero-hybrid__profile-img"
                   />
                 </div>
+              </div>
+
+              {/* Floating UI toolkit overlays */}
+              <div className="hero-hybrid__ui-element hero-hybrid__ui-element--code">
+                <img src="/images/hero/ui_elements/ui_code.png" alt="" />
+              </div>
+              <div className="hero-hybrid__ui-element hero-hybrid__ui-element--prompt">
+                <img src="/images/hero/ui_elements/ui_prompt.png?v=2" alt="" />
+              </div>
+              <div className="hero-hybrid__ui-element hero-hybrid__ui-element--illustrator">
+                <img src="/images/hero/ui_elements/ui_illustrator.avif" alt="" />
               </div>
             </div>
           </div>

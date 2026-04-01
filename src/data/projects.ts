@@ -26,6 +26,7 @@ export interface Project {
   images: ProjectImage[];
   metrics: ProjectMetric[];
   resultsNote?: string;
+  ownership?: string[];
   hidden?: boolean;
 }
 
@@ -45,15 +46,14 @@ const projects: Project[] = [
     featured: '/images/work/wheelrack/CS_thumbnail_wheelrack_designSystem.jpg',
     brief: 'WheelRack is Tire Rack\u2019s dedicated aftermarket wheel shopping experience, served across multiple retail partner brands (PitStop, OrderTire, AAFES Exchange, AutoNation). The project required a ground-up revamp and replatform \u2014 building a shared design system from scratch, designing the full customer journey from vehicle selection through wheel details, and delivering responsive high-fidelity mockups with detailed UI behavior documentation for every state and edge case.',
     challenge: 'The existing WheelRack experience was fragmented, visually inconsistent across partner sites, and lacked a coherent design system. The vehicle selector used a clunky dropdown interface with no autocomplete. Search results had no wheel visualizer. Product detail pages couldn\u2019t handle complex fitment scenarios like front/rear sizing or unavailable finish combinations. Every interaction needed to be redesigned from wireframe through high-fidelity \u2014 across desktop, tablet, and mobile \u2014 with annotated UI behavior specs for engineering handoff.',
+    ownership: [
+      'Defined UX direction across fragmented experiences',
+      'Built design system from scratch',
+      'Partnered directly with React team on implementation',
+      'Documented patterns + edge cases for production',
+    ],
     images: [
-      // 1. Design System — color tokens
-      {
-        src: '/images/work/wheelrack/wheelrack-design-system-01.png',
-        alt: 'WheelRack design system color token palette with neutral, primary, secondary, and semantic scales',
-        layout: 'full',
-        caption: 'wheelrack-design-system-01 — Color token system across all semantic scales',
-      },
-      // 2. Design System — typography + buttons pair
+      // 1. Design System — typography + buttons pair
       {
         src: '/images/work/wheelrack/wheelrack-design-system-02.png',
         alt: 'Typography scale with heading sizes, weights, and body text styles',
@@ -98,7 +98,6 @@ const projects: Project[] = [
         src: '/images/work/wheelrack/wheelrack-final-mobile-01.png',
         alt: 'Mobile wheel search results with responsive filter flyout and stacked product cards',
         layout: 'full',
-        mobile: true,
         caption: 'wheelrack-final-mobile-01 — Mobile results with responsive filter pattern',
       },
     ],
