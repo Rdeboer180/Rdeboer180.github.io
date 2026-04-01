@@ -254,7 +254,7 @@
     transform: translate(-50%, -50%);
     border-radius: 50%;
     overflow: hidden;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 12px 4px rgba(0, 0, 0, 0.3);
 
     &-inner {
       width: 100%;
@@ -288,7 +288,7 @@
     height: 374px;
     border-radius: 50%;
     overflow: hidden;
-    opacity: 0.6;
+    opacity: 0.8;
   }
 
   &__profile-img {
