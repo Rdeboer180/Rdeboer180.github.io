@@ -27,6 +27,9 @@ export interface Project {
   metrics: ProjectMetric[];
   resultsNote?: string;
   ownership?: string[];
+  approach?: string;
+  process?: { label: string; description: string }[];
+  takeaways?: string[];
   hidden?: boolean;
 }
 
@@ -306,6 +309,97 @@ const projects: Project[] = [
       { value: 'Owner-Run', label: 'Zero ongoing agency dependency' },
     ],
     resultsNote: 'The site launched with a complete brand identity, 10+ SEO-optimized service pages each functioning as independent search entry points with dedicated contact forms, an FAQ section addressing the real questions parents ask before enrolling, and a WordPress CMS the owner operates independently. Families now discover Heatherwood through Google searches for specific services like "horseback riding lessons South Bend" and "summer horse camps Granger Indiana" \u2014 a capability that didn\u2019t exist before this project.',
+  },
+  // =============================================
+  // 4. Tire Rack — Landing Page Design System  [image LEFT]
+  // =============================================
+  {
+    slug: 'landing-pages',
+    client: 'Tire Rack',
+    title: 'Conversion-Focused Landing Pages at Scale',
+    year: '2021\u2013Present',
+    tags: ['UX Design', 'SEO', 'AEM', 'Content Strategy', 'Responsive'],
+    role: 'Senior Web Designer / AEM Author',
+    tools: ['Figma', 'Adobe Experience Manager', 'HTML/CSS', 'Adobe Creative Suite', 'AI-Assisted Content Tools'],
+    timeline: 'Ongoing',
+    featured: '/images/work/landing-pages/CS_thumbnail_landing-pages.jpg',
+    brief: 'Over the past several years, I\u2019ve become the go-to designer for rapid, conversion-focused landing pages at Tire Rack. These pages serve as SEO-driven entry points for tire sizes, product categories, seasonal promotions, and specialty segments like EV tires and classic car tires. I regularly take a lightweight content brief \u2014 often just tire types and target keywords \u2014 and turn it into a fully designed, structured, and published landing page within hours.',
+    challenge: 'Tire Rack\u2019s landing pages needed to serve two audiences simultaneously: customers searching for specific tire sizes or categories, and search engines indexing structured content. The existing pages were inconsistent in layout, lacked clear heading hierarchy, and weren\u2019t optimized for the long-tail keyword patterns that drive organic traffic. Each new page request came with minimal direction \u2014 a tire type, a few keywords, maybe a product photo \u2014 and needed to ship fast without sacrificing quality or SEO structure.',
+    ownership: [
+      'Translating minimal briefs into structured, conversion-focused layouts',
+      'Writing and structuring H1\u2013H6 hierarchy using keyword intent',
+      'Using AI-assisted tools to generate and refine SEO-friendly content',
+      'Sourcing and directing photography with in-house assets',
+      'Building reusable page patterns and scalable layout systems',
+      'Working directly in AEM as the primary author-facing contact',
+      'Partnering with backend developers on component inputs and API-driven content',
+      'Iterating based on analytics, A/B testing, and performance insights',
+    ],
+    approach: 'The core approach was systems-first: rather than designing each page from scratch, I developed a set of reusable layout patterns \u2014 hero modules, product grids, FAQ accordions, brand carousels, size tables \u2014 that could be assembled and configured for any category or promotion. This let me move fast without cutting corners. Every page was built with SEO baked into the design: heading hierarchy mapped to keyword intent, structured content for featured snippets, and clear conversion paths from search landing to product selection. I worked directly in AEM to author, test, and publish, and partnered with the SEO and analytics teams to measure performance and iterate.',
+    process: [
+      { label: 'Intake', description: 'Receive a minimal brief \u2014 tire type, target keywords, product focus. Clarify intent with SEO and merchandising teams.' },
+      { label: 'Structure', description: 'Rapidly map out layout and heading hierarchy. Match H1\u2013H6 structure to keyword intent and user scanning patterns.' },
+      { label: 'Design', description: 'Assemble from proven layout patterns. Source photography, write or refine copy with AI-assisted tools, and build the full page in Figma.' },
+      { label: 'Build', description: 'Author directly in AEM using Experience Fragment components. QA across breakpoints and browsers.' },
+      { label: 'Launch', description: 'Publish and validate. Monitor organic traffic, engagement metrics, and conversion against benchmarks.' },
+      { label: 'Iterate', description: 'Refine based on analytics and A/B test results. Feed learnings back into the pattern library for future pages.' },
+    ],
+    images: [
+      {
+        src: '/images/work/landing-pages/landing-pages-responsive-preview.jpg',
+        alt: 'BFGoodrich G-Force Phenom product landing page shown across desktop and mobile breakpoints',
+        layout: 'full',
+        caption: 'Product landing page \u2014 responsive design with hero, SEO copy, and clear CTA',
+      },
+      {
+        src: '/images/work/landing-pages/landing-pages-classic-tires.jpg',
+        alt: 'Classic Car Tires category landing page with hero imagery and structured content across desktop and mobile',
+        layout: 'half',
+        caption: 'Classic Car Tires \u2014 category landing page with brand carousel and SEO-structured content',
+      },
+      {
+        src: '/images/work/landing-pages/landing-pages-35-inch.jpg',
+        alt: '35-Inch Tires size-based landing page showing lifestyle hero and popular tire listings',
+        layout: 'half',
+        caption: '35-Inch Tires \u2014 size-based SEO entry point with lifestyle photography and product grid',
+      },
+      {
+        src: '/images/work/landing-pages/landing-pages-20-inch.jpg',
+        alt: '20-Inch Tires landing page with close-up product hero and responsive mobile layout',
+        layout: 'full',
+        caption: '20-Inch Tires \u2014 size category page with contextual photography and conversion-focused layout',
+      },
+      {
+        src: '/images/work/landing-pages/landing-pages-full-page-layouts.jpg',
+        alt: 'Side-by-side full-page layouts showing 20-inch tire detail page with size table, promotions, and product recommendations',
+        layout: 'full',
+        caption: 'Full page structure \u2014 size table, promotions, product recommendations, and FAQ content',
+      },
+      {
+        src: '/images/work/landing-pages/landing-pages-classic-full.jpg',
+        alt: 'Classic Car Tires full landing page with featured brands, FAQ accordion, customer reviews, and footer',
+        layout: 'half',
+        caption: 'Classic Car Tires \u2014 full page with FAQ, featured brands, and customer testimonials',
+      },
+      {
+        src: '/images/work/landing-pages/landing-pages-product-mobile.jpg',
+        alt: 'BFGoodrich G-Force Phenom product page shown in mobile layouts with video, specs, and FAQ sections',
+        layout: 'half',
+        caption: 'Product page mobile views \u2014 video content, specifications, and FAQ accordion',
+      },
+    ],
+    metrics: [
+      { value: '50+', label: 'Landing pages designed & published' },
+      { value: 'Hours', label: 'Typical brief-to-live turnaround' },
+      { value: 'End-to-End', label: 'Brief \u2192 Design \u2192 Build \u2192 Live' },
+    ],
+    resultsNote: 'This work established a repeatable, scalable system for landing page production at Tire Rack. Pages that previously required cross-team coordination and multi-day timelines now go live in hours. The reusable pattern library reduced design-to-publish time while maintaining consistent quality, SEO structure, and conversion performance across size-based, category, seasonal, and product-focused pages.',
+    takeaways: [
+      'Speed and quality aren\u2019t tradeoffs when you invest in systems. Reusable patterns let me ship in hours without shortcuts.',
+      'SEO isn\u2019t a separate step \u2014 it\u2019s a design decision. Heading hierarchy, content structure, and page layout all serve search intent.',
+      'Owning the full pipeline \u2014 from brief to live page \u2014 removes bottlenecks and builds institutional knowledge that compounds over time.',
+      'AI-assisted content tools are most effective when paired with a designer who understands structure, intent, and the end user.',
+    ],
   },
 ];
 

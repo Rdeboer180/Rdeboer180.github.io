@@ -221,6 +221,88 @@
   }
 
   // ==========================================
+  // Approach Section
+  // ==========================================
+  &__approach {
+    max-width: 720px;
+    margin-bottom: $spacing-4xl;
+    @include fade-in-up(0.3s);
+
+    p {
+      font-family: $font-family-primary;
+      font-size: $font-size-body;
+      line-height: $line-height-body;
+      color: $color-neutral-standard;
+    }
+  }
+
+  // ==========================================
+  // How I Work (Process Steps)
+  // ==========================================
+  &__process {
+    margin-bottom: $spacing-4xl;
+    @include fade-in-up(0.3s);
+  }
+
+  &__process-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-xl;
+  }
+
+  &__process-step {
+    display: flex;
+    gap: $spacing-lg;
+    padding: $spacing-xl;
+    background: $color-secondary-lightest;
+    border-radius: $card-border-radius-lg;
+    border: 1px solid $color-secondary-light;
+  }
+
+  &__process-number {
+    font-family: $font-family-heading;
+    font-size: $font-size-h4;
+    font-weight: $font-weight-bold;
+    color: $color-primary;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  &__process-content {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+  }
+
+  &__process-label {
+    font-family: $font-family-heading;
+    font-size: $font-size-body;
+    font-weight: $font-weight-bold;
+    color: $color-neutral-dark;
+    margin: 0;
+  }
+
+  &__process-desc {
+    font-family: $font-family-primary;
+    font-size: $font-size-body-sm;
+    line-height: $line-height-body-sm;
+    color: $color-neutral-standard;
+    margin: 0;
+  }
+
+  // ==========================================
+  // Key Takeaways
+  // ==========================================
+  &__takeaways {
+    max-width: 720px;
+    margin-bottom: $spacing-4xl;
+    @include fade-in-up(0.3s);
+  }
+
+  // ==========================================
   // Project Images
   // ==========================================
   &__images {
@@ -600,6 +682,10 @@
     }
 
     &__image-pair {
+      grid-template-columns: 1fr;
+    }
+
+    &__process-steps {
       grid-template-columns: 1fr;
     }
 

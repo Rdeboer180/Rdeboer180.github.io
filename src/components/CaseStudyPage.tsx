@@ -151,6 +151,32 @@ const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ slug }) => {
           </aside>
         </section>
 
+        {/* ==================== Approach (optional) ==================== */}
+        {project.approach && (
+          <section className="cs__approach">
+            <h2 className="cs__section-heading">The Approach</h2>
+            <p>{project.approach}</p>
+          </section>
+        )}
+
+        {/* ==================== How I Work (optional) ==================== */}
+        {project.process && project.process.length > 0 && (
+          <section className="cs__process">
+            <h2 className="cs__section-heading">How I Work</h2>
+            <ol className="cs__process-steps">
+              {project.process.map((step, i) => (
+                <li key={i} className="cs__process-step">
+                  <span className="cs__process-number">{String(i + 1).padStart(2, '0')}</span>
+                  <div className="cs__process-content">
+                    <h4 className="cs__process-label">{step.label}</h4>
+                    <p className="cs__process-desc">{step.description}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+
         {/* ==================== Project Images ==================== */}
         <section className="cs__images">
           {(() => {
@@ -227,6 +253,18 @@ const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ slug }) => {
             <p className="cs__results-note">{project.resultsNote}</p>
           )}
         </section>
+
+        {/* ==================== Key Takeaways (optional) ==================== */}
+        {project.takeaways && project.takeaways.length > 0 && (
+          <section className="cs__takeaways">
+            <h2 className="cs__section-heading">Key Takeaways</h2>
+            <ul className="cs__ownership-list">
+              {project.takeaways.map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         {/* ==================== Next Project ==================== */}
         {nextProject && nextProject.slug !== project.slug && (
