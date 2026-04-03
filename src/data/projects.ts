@@ -11,26 +11,53 @@ export interface ProjectImage {
   mobile?: boolean;
 }
 
+export interface ApproachSubsection {
+  key: string;
+  label: string;
+  description: string;
+  images?: ProjectImage[];
+  gridColumns?: 2 | 3 | 4;
+}
+
 export interface Project {
   slug: string;
   client: string;
   title: string;
+  summary?: string;
   year: string;
   tags: string[];
   role: string;
   tools: string[];
   timeline: string;
   featured: string;
-  brief: string;
-  challenge: string;
-  images: ProjectImage[];
   metrics: ProjectMetric[];
+  hidden?: boolean;
+  timeToLive?: string;
+
+  // New 7-section structure
+  problem?: string[];
+  problemImages?: ProjectImage[];
+  gaps?: string[];
+  gapsImages?: ProjectImage[];
+  constraints?: string[];
+  constraintsImages?: ProjectImage[];
+  approachSubsections?: ApproachSubsection[];
+  outcomeNote?: string;
+  outcomeImages?: ProjectImage[];
+
+  // Legacy approach steps (kept for other projects during transition)
+  approachSteps?: { label: string; description: string }[];
+  approachImages?: ProjectImage[];
+
+  // Legacy fields (kept for backward compat during transition)
+  brief?: string;
+  challenge?: string;
+  images?: ProjectImage[];
   resultsNote?: string;
   ownership?: string[];
   approach?: string;
   process?: { label: string; description: string }[];
   takeaways?: string[];
-  hidden?: boolean;
 }
 
 const projects: Project[] = [
@@ -41,75 +68,146 @@ const projects: Project[] = [
     slug: 'wheelrack',
     client: 'Tire Rack \u2014 WheelRack',
     title: 'WheelRack Design System & Full Customer Journey Redesign',
+    summary: 'Built a design system from scratch and redesigned the full customer journey for a 20-year-old dealer platform\u2014growing partner adoption from 6 to 10+ retail brands.',
     year: '2023\u20132024',
-    tags: ['Design Systems', 'UX Design', 'UI Design', 'Responsive', 'Wireframing'],
+    tags: ['Design Systems', 'UX Design', 'UI Design', 'Responsive', 'React'],
     role: 'Senior Web Designer / UX Engineer',
-    tools: ['Figma', 'FigJam', 'HTML/CSS', 'JavaScript'],
-    timeline: '12+ months',
+    tools: ['Figma', 'Token Studio', 'Storybook', 'HTML/CSS', 'JavaScript'],
+    timeline: '~4 months dedicated (12+ months total with API delays)',
     featured: '/images/work/wheelrack/CS_thumbnail_wheelrack_designSystem.jpg',
-    brief: 'WheelRack is Tire Rack\u2019s dedicated aftermarket wheel shopping experience, served across multiple retail partner brands (PitStop, OrderTire, AAFES Exchange, AutoNation). The project required a ground-up revamp and replatform \u2014 building a shared design system from scratch, designing the full customer journey from vehicle selection through wheel details, and delivering responsive high-fidelity mockups with detailed UI behavior documentation for every state and edge case.',
-    challenge: 'The existing WheelRack experience was fragmented, visually inconsistent across partner sites, and lacked a coherent design system. The vehicle selector used a clunky dropdown interface with no autocomplete. Search results had no wheel visualizer. Product detail pages couldn\u2019t handle complex fitment scenarios like front/rear sizing or unavailable finish combinations. Every interaction needed to be redesigned from wireframe through high-fidelity \u2014 across desktop, tablet, and mobile \u2014 with annotated UI behavior specs for engineering handoff.',
-    ownership: [
-      'Defined UX direction across fragmented experiences',
-      'Built design system from scratch',
-      'Partnered directly with React team on implementation',
-      'Documented patterns + edge cases for production',
+    timeToLive: '8+ months of work to build out system, project pending live date due to ongoing API call work',
+
+    // ── 01 Problem ──
+    problem: [
+      'WheelRack is Tire Rack\u2019s aftermarket wheel visualizer\u2014roughly 20 years old, served to dealers across 6 retail partners.',
+      'Dealers use it on tablets in-store. No responsive design, clunky dropdowns, visually inconsistent across partner brands.',
+      'Business goal: modernize as a proof-of-concept for Tire Rack\u2019s future tech stack (React + Microservices).',
     ],
-    images: [
-      // 1. Design System — typography + buttons pair
+    problemImages: [
       {
-        src: '/images/work/wheelrack/wheelrack-design-system-02.png',
-        alt: 'Typography scale with heading sizes, weights, and body text styles',
-        layout: 'half',
-        caption: 'wheelrack-design-system-02 — Typography scale and hierarchy',
-      },
-      {
-        src: '/images/work/wheelrack/wheelrack-design-system-04.png',
-        alt: 'Button component library with primary and secondary variants across sizes and states',
-        layout: 'half',
-        caption: 'wheelrack-design-system-04 — Button components with full state matrix',
-      },
-      // 3. UX Wireframe — vehicle selector flow
-      {
-        src: '/images/work/wheelrack/wheelrack-ux-wireframe-01.png',
-        alt: 'Vehicle selector wireframe with Make/Year/Model steps and annotated UI behavior specs',
+        src: '/images/work/wheelrack/supporting/Problem/oldsite1.png',
+        alt: 'Old WheelRack vehicle selector showing basic dropdown and outdated partner branding',
         layout: 'full',
-        caption: 'wheelrack-ux-wireframe-01 — Vehicle selector UX with annotated behavior specs',
+        caption: 'The existing vehicle selector\u2014no autocomplete, no responsive behavior, no shared design language',
       },
-      // 4. Final desktop — landing page
+    ],
+
+    // ── 02 Gaps & Opportunity ──
+    gaps: [
+      'No shared design system, tokens, or component library\u2014every partner variant handled ad hoc.',
+      'Identified early that my Figma skills needed leveling up. Completed an 80+ hour Figma Masterclass certification mid-project.',
+      'Partnered with a senior React developer to build the system from the ground up\u2014Figma components integrated with Token Studio, validated through Storybook.',
+    ],
+    gapsImages: [
       {
-        src: '/images/work/wheelrack/wheelrack-final-desktop-01.png',
-        alt: 'WheelRack landing page with wheel visualizer, vehicle image, filters, and search results across desktop and mobile',
+        src: '/images/work/wheelrack/supporting/approach/wheelrack-ux-wireframe-02.png',
+        alt: 'Vehicle selector wireframe with annotated UI behavior specs for Make/Year/Model autocomplete flow',
         layout: 'full',
-        caption: 'wheelrack-final-desktop-01 — High-fidelity landing page with wheel visualizer',
+        caption: 'Early wireframe showing the complexity of the vehicle selector flow\u2014this wasn\u2019t just a UI cleanup',
       },
-      // 5. Final desktop — wheel details + annotated specs pair
+    ],
+
+    // ── 03 Constraints ──
+    constraints: [
+      'Sprint 0 followed Waterfall; future sprints shifted to Agile\u2014a new methodology for the team.',
+      'Design time split across higher priority retail projects, with 10\u201320 day windows per task.',
+      'Complex fitment edge cases: front/rear sizing, unavailable finish combos, missing vehicle photography, partner-specific behaviors.',
+      'Custom headers/footers per partner with additional filters or cart integration.',
+      'Coordinated with in-house photography team for vehicle and wheel images at specific angles.',
+    ],
+    constraintsImages: [
       {
-        src: '/images/work/wheelrack/wheelrack-final-desktop-04.png',
-        alt: 'Wheel details page with product hero, finish selector, vehicle preview, and spec table',
-        layout: 'half',
-        caption: 'wheelrack-final-desktop-04 — Product detail page with vehicle preview',
-      },
-      {
-        src: '/images/work/wheelrack/wheelrack-final-desktop-05.png',
-        alt: 'Annotated wheel details with numbered UI behavior callouts for engineering handoff',
-        layout: 'half',
-        caption: 'wheelrack-final-desktop-05 — Annotated specs for engineering handoff',
-      },
-      // 6. Final mobile — responsive results
-      {
-        src: '/images/work/wheelrack/wheelrack-final-mobile-01.png',
-        alt: 'Mobile wheel search results with responsive filter flyout and stacked product cards',
+        src: '/images/work/wheelrack/supporting/opportunity/beforeIbegin_discovery.png',
+        alt: 'Figma Masterclass certification awarded to Ryan DeBoer\u2014system thinking before visual design',
         layout: 'full',
-        caption: 'wheelrack-final-mobile-01 — Mobile results with responsive filter pattern',
+        caption: 'Invested in system-level thinking before jumping into visuals\u2014the foundation for everything that followed',
+      },
+    ],
+
+    // ── 04 Approach (subsections) ──
+    approachSubsections: [
+      {
+        key: 'alignment',
+        label: 'Alignment',
+        description: 'Full stakeholder meeting to review objectives. Worked with UX design manager and teammates to map the page flow and identify the primary user: dealers on tablets.',
+        images: [],
+      },
+      {
+        key: 'structure',
+        label: 'Structure',
+        description: 'Wireframed the full customer journey\u2014vehicle selection, search results, product detail, and checkout. Annotated behavior specs for autocomplete, responsive states, and error handling.',
+        gridColumns: 2,
+        images: [
+          {
+            src: '/images/work/wheelrack/supporting/approach/wheelrack-ux-wireframe-03.png',
+            alt: 'Detailed wireframe with annotated UI behavior specs for vehicle selector and search flow',
+            layout: 'full',
+            caption: 'Wireframe with behavior specs\u2014autocomplete, dynamic selection, responsive breakpoints',
+          },
+        ],
+      },
+      {
+        key: 'system',
+        label: 'System',
+        description: 'Established atomic tokens (color, spacing, typography, shadow) that evolved into buttons, inputs, headers, modals, product cards, and visualizer views. Each component built in Figma, validated in Storybook.',
+        gridColumns: 2,
+        images: [
+          {
+            src: '/images/work/wheelrack/supporting/opportunity/wheelrack-design-system-02.png',
+            alt: 'Figma typography token definitions with heading and body text styles',
+            layout: 'half',
+            caption: 'Typography tokens\u2014source of truth across Figma and code',
+          },
+          {
+            src: '/images/work/wheelrack/supporting/opportunity/wheelrack-design-system-05.png',
+            alt: 'Full button state matrix showing primary and secondary variants across sizes',
+            layout: 'half',
+            caption: 'Button component\u2014full state matrix across sizes and variants',
+          },
+        ],
+      },
+      {
+        key: 'build',
+        label: 'Build',
+        description: 'Partnered daily with React dev via Slack threads and calls. Components validated in Storybook before integration. Supplied detailed front-end behavior specs for every complex component.',
+        images: [
+          {
+            src: '/images/work/wheelrack/supporting/opportunity/storybook.png',
+            alt: 'Storybook button component with props table showing variant, size, and state controls',
+            layout: 'full',
+            caption: 'Storybook integration\u2014props, variants, and interactive playground bridging design to code',
+          },
+        ],
+      },
+      {
+        key: 'iteration',
+        label: 'Iteration',
+        description: 'Presented weekly to a large stakeholder group for review and sign-off. Spent 40+ hours comparing the React build against Figma styles\u2014reviewing token names, responsive behavior, and component fidelity screen by screen.',
+        images: [],
+      },
+    ],
+
+    // ── 05 Outcome ──
+    outcomeNote: 'Delivered a complete design system and full customer journey from vehicle selection through checkout. 6 additional dealer partners opted in after seeing the redesigned UI\u2014growing the platform from 6 to 10+ retail partners. The Storybook-integrated component library enabled the React team to build without ambiguity, and the token system established a shared language between design and engineering.',
+    outcomeImages: [
+      {
+        src: '/images/work/wheelrack/supporting/outcome/wheelrack-final-desktop-01.png',
+        alt: 'Final WheelRack landing page with wheel visualizer, vehicle image, filters, and search results',
+        layout: 'full',
+        caption: 'Shipped landing page\u2014vehicle visualizer, filter system, and responsive product grid',
+      },
+      {
+        src: '/images/work/wheelrack/supporting/approach/wheelrack-final-desktop-05.png',
+        alt: 'Wheel details page with annotated UI behavior callouts for fitment, finish selector, and product tabs',
+        layout: 'full',
+        caption: 'Product detail page\u2014annotated specs for engineering handoff',
       },
     ],
     metrics: [
-      { value: '50+', label: 'Design system components' },
-      { value: '22', label: 'Pages of annotated UI specs' },
-      { value: '4', label: 'Retail partners supported' },
+      { value: '200+', label: 'Atomic-level design tokens' },
+      { value: '50+', label: 'Storybook-integrated components' },
+      { value: '6 \u2192 10+', label: 'Retail partners (organic growth)' },
     ],
-    resultsNote: 'Delivered a complete design system and full customer journey from vehicle selection through product details. The system supports four retail partner brands, handles complex fitment edge cases, and shipped with annotated UI behavior documentation for every state \u2014 enabling engineering to build without ambiguity.',
   },
 
   // =============================================
@@ -119,34 +217,145 @@ const projects: Project[] = [
     slug: 'tire-categories',
     client: 'Tire Rack',
     title: 'Tire Category Page Redesign & Optimizations',
+    summary: 'Redesigned 30+ tire category pages into a scalable system\u2014creating a unified framework of iconography, data visualization, and content structure that drove +400% entry growth and +50% conversion lift.',
     year: '2024',
     tags: ['UX Design', 'UI Design', 'Wireframing', 'Design Systems'],
     role: 'Senior Web Designer / UX Engineer',
     tools: ['Figma', 'FigJam', 'HTML/CSS', 'Adobe Creative Suite'],
-    timeline: '6 months',
+    timeline: '2 months',
     featured: '/images/work/tire-categories/CS_thumbnail_TireCategories.jpg',
-    brief: 'Tire Rack\u2019s category pages were the primary entry point for millions of customers navigating one of the largest online tire retailers. The existing system relied on outdated layouts, inconsistent iconography, and a content structure that didn\u2019t reflect how real users shop for tires. The project spanned wireframing, requirements documentation, custom icon design, and full high-fidelity mockups across desktop and mobile.',
-    challenge: 'The core challenge was rethinking how tire categories are presented \u2014 from a flat, text-heavy page to a structured, visually intuitive system that reduces decision fatigue. Customers needed to quickly identify the right tire type for their driving conditions without reading walls of spec text. Each category required a distinct visual identity through custom iconography while maintaining consistency across the system.',
-    images: [
+    timeToLive: '~2 months from brief to system launch across 30+ category pages',
+
+    // \u2500\u2500 01 Problem \u2500\u2500
+    problem: [
+      'Tire Rack\u2019s category pages serve as a primary entry point for millions of users navigating a highly complex product space.',
+      'The existing experience was text-heavy and inconsistent\u2014no visual system to differentiate 40+ tire categories, each supporting 80+ products.',
+      'Design needed to define both the structure and the visual language from scratch.',
+    ],
+    problemImages: [
       {
-        src: '/images/work/tire-categories/featured.png',
-        alt: 'Tire category redesign \u2014 before and after comparison with custom icon system',
+        src: '/images/work/tire-categories/supporting/Problem/projectNotes.png',
+        alt: 'Project notes outlining category page requirements, content structure, and initial scope',
         layout: 'full',
-        caption: 'Final category page designs with custom weather and terrain icon set',
+        caption: 'Project notes\u2014scoping the category system before any design work began',
+      },
+    ],
+
+    // \u2500\u2500 02 Gaps & Opportunity \u2500\u2500
+    gaps: [
+      'No existing framework to visually represent differences between categories.',
+      'Each category needed to communicate distinct performance characteristics clearly while maintaining consistency across 40+ variations.',
+      'SEO-driven content requirements competing with usability and clarity\u2014no balance had been struck.',
+    ],
+    gapsImages: [
+      {
+        src: '/images/work/tire-categories/supporting/opportunity/earlyProcess_notes.png',
+        alt: 'Early process notes mapping category structure and content requirements',
+        layout: 'full',
+        caption: 'Early discovery notes\u2014mapping what was missing before any design began',
+      },
+    ],
+
+    // \u2500\u2500 03 Constraints \u2500\u2500
+    constraints: [
+      '40+ unique category variations needed consistent treatment.',
+      'Large product sets (often 80+ tires per category) requiring balanced content density.',
+      'SEO content requirements had to coexist with clean, scannable design.',
+      'No photography direction existed for category-specific imagery.',
+      'Performance data had to be sourced, validated, and visualized for each category.',
+    ],
+
+    // \u2500\u2500 04 Approach (subsections) \u2500\u2500
+    approachSubsections: [
+      {
+        key: 'alignment',
+        label: 'Alignment',
+        description: 'Broke the experience into scalable layers: category hierarchy, icon systems, data visualization, and content structure aligned to SEO intent. Close coordination across SEO, copy, testing, and development teams throughout.',
+        images: [],
       },
       {
-        src: '/images/work/tire-categories/in-page-application.png',
-        alt: 'Extreme Performance Summer tire category page showing product grid, features section, and brand logos',
+        key: 'structure',
+        label: 'Structure',
+        description: 'Defined the category page hierarchy and wireframed repeatable layout patterns that could flex across 40+ variations while keeping product discovery and comparison front and center.',
+        images: [
+          {
+            src: '/images/work/tire-categories/supporting/Problem/wireframes.png',
+            alt: 'Category page wireframes showing layout hierarchy and content zones',
+            layout: 'full',
+            caption: 'Wireframes establishing the repeatable page structure across all category types',
+          },
+        ],
+      },
+      {
+        key: 'system',
+        label: 'System',
+        description: 'Developed 8 primary category icons and 24 supporting characteristic icons to reduce cognitive load. Designed a CSS-animated bar chart system for performance comparison. Worked with the photography team to define visual direction for each category.',
+        gridColumns: 2,
+        images: [
+          {
+            src: '/images/work/tire-categories/supporting/constraints/workingFiles.png',
+            alt: 'Working design files showing icon system development and category component variants',
+            layout: 'half',
+            caption: 'Working files\u2014icon system and component development across category types',
+          },
+          {
+            src: '/images/work/tire-categories/supporting/outcome/primaryHome+icons.png',
+            alt: 'Primary category landing page with 8 category icons and visual hierarchy',
+            layout: 'half',
+            caption: 'Category hub\u20148 primary icons enabling quick visual scanning across tire types',
+          },
+        ],
+      },
+      {
+        key: 'build',
+        label: 'Build',
+        description: 'Worked with engineering to define reusable AEM components with admin-controlled fields for performance data. Contributed directly to page structure, CSS chart animations, SVG icon creation, and scalable styling patterns.',
+        gridColumns: 2,
+        images: [
+          {
+            src: '/images/work/tire-categories/supporting/approach/snipet_beforede1.png',
+            alt: 'Code snippet showing CSS implementation of category page components',
+            layout: 'half',
+            caption: 'Front-end execution\u2014CSS and component structure contributed directly to the build',
+          },
+          {
+            src: '/images/work/tire-categories/supporting/approach/versioning_git.png',
+            alt: 'Git version control showing branch management for category page development',
+            layout: 'half',
+            caption: 'Version control\u2014managing code alongside the development team',
+          },
+        ],
+      },
+      {
+        key: 'iteration',
+        label: 'Iteration',
+        description: 'System scaled to 30+ landing pages with consistent UX patterns and flexible CMS-driven content updates. Non-dev teams could update performance data and category content without engineering support.',
+        images: [],
+      },
+    ],
+
+    // \u2500\u2500 05 Outcome \u2500\u2500
+    outcomeNote: 'The redesigned system aligned SEO, UX, and product discovery into a single framework\u2014reducing friction while increasing clarity and conversion. It created a scalable foundation that supports 30+ category pages with consistent patterns and CMS-driven flexibility.',
+    outcomeImages: [
+      {
+        src: '/images/work/tire-categories/supporting/outcome/in-page-application.png',
+        alt: 'Category detail page showing performance bar charts, product grid, and icon system in context',
         layout: 'full',
-        caption: 'In-page application \u2014 category detail view with feature callouts and product grid',
+        caption: 'Category page in context\u2014performance data, icon system, and product discovery working together',
+      },
+      {
+        src: '/images/work/tire-categories/supporting/outcome/winter_m.png',
+        alt: 'Winter tire category page on mobile showing responsive layout with performance data and product listings',
+        layout: 'full',
+        caption: 'Mobile category experience\u2014responsive layout maintaining full functionality',
+        mobile: true,
       },
     ],
     metrics: [
-      { value: '+34%', label: 'Category page engagement' },
-      { value: '-22%', label: 'Bounce rate reduction' },
-      { value: '6', label: 'Custom icon categories designed' },
+      { value: '+400%', label: 'Category page entry growth' },
+      { value: '+50%', label: 'Conversion lift across key pages' },
+      { value: '32', label: 'Custom icons (8 primary + 24 supporting)' },
     ],
-    resultsNote: 'The redesigned category system improved findability across all tire types and established a scalable pattern now used across additional product verticals at Tire Rack.',
   },
 
   // =============================================
