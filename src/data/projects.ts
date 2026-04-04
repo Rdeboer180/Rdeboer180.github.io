@@ -728,7 +728,7 @@ const projects: Project[] = [
       },
     ],
 
-    insightCallout: 'Speed and quality aren\u2019t tradeoffs when you invest in systems. Reusable patterns and AI-assisted workflows let me ship in hours without shortcuts.',
+    insightCallout: 'Speed and quality aren\u2019t tradeoffs when you invest in systems. Reusable patterns and AI-assisted skills provided me with a system to document and prepare notes for stakeholder signoff and for QA/Live testing in a matter of minutes.',
 
     // \u2500\u2500 04 Approach (subsections) \u2500\u2500
     approachSubsections: [
@@ -755,21 +755,21 @@ const projects: Project[] = [
       {
         key: 'system',
         label: 'AEM System Development',
-        description: 'Built and refined reusable AEM component patterns: rapid page creation from pre-defined layouts, flexible content input through structured fields, and integration with API-driven product and search data.',
+        description: 'Built and established a system of reusable component patterns: rapid page creation from pre-defined layouts to start from.',
         systemMarker: 'System decision',
         images: [
           {
             src: '/images/work/landing-pages/supporting/communication_images.png',
             alt: 'Cross-team communication artifacts from landing page development process',
             layout: 'full',
-            caption: 'Cross-functional coordination\u2014aligning SEO, merchandising, and development on component strategy',
+            caption: 'Cross-functional coordination\u2014aligning SEO, tire test team, and development on component strategy',
           },
         ],
       },
       {
         key: 'build',
         label: 'AI-Assisted Workflow',
-        description: 'Developed a ChatGPT-based workflow that generates structured content from component inputs, pulls relevant product categories (tire sizes, wheel sizes), creates internal linking structures aligned to SEO strategy, and produces QA-ready notes and testing scenarios.',
+        description: 'Developed a ChatGPT-based workflow that generates structured content from component inputs, pulls relevant product size links and builds them into the structured table, creates internal linking structures aligned to SEO strategy, and produces QA-ready notes and testing scenarios.',
         systemMarker: 'Scalability consideration',
         images: [
           {
@@ -783,13 +783,13 @@ const projects: Project[] = [
       {
         key: 'iteration',
         label: 'Iteration & Deployment',
-        description: 'High-impact pages deploy to staging with generated QA docs and team review. Lower-risk pages publish directly with live testing and optimization. Process evolved from week-long cycles to same-week or multi-day turnarounds.',
+        description: 'High-impact pages deploy to staging with generated QA docs and team review. Lower-risk pages publish directly with live testing and optimization. Took ownership over process and documentation for junior designers to follow. Process evolved from week-long cycles to same-week or multi-day turnarounds.',
         images: [],
       },
     ],
 
     // \u2500\u2500 05 Outcome \u2500\u2500
-    outcomeNote: 'This work shifted landing page creation from a one-off design task to a scalable system. By combining design systems, AEM component strategy, and AI-assisted workflows, I enabled faster execution, better consistency, and stronger alignment between SEO, UX, and product discovery.',
+    outcomeNote: 'This work shifted landing page creation from a one-off design task to a scalable system. By combining design patterns, AEM component strategy, and AI-assisted workflows, I enabled faster execution, better consistency, and stronger alignment between SEO, UX, and product discovery.',
     outcomeImages: [
       {
         src: '/images/work/landing-pages/supporting/landing-pages-35-inch.jpg',
