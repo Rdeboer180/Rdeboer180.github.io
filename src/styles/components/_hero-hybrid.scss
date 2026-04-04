@@ -129,8 +129,9 @@
     margin-bottom: $spacing-sm;
     font-weight: 700;
 
-      span {
-      color:$color-primary;
+    span {
+      display: block;
+      color: $color-primary;
     }
   }
 
