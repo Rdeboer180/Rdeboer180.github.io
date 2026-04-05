@@ -18,13 +18,6 @@ const UserIcon = () => (
   </svg>
 );
 
-const stats = [
-  { value: '16+', label: 'Years designing professionally' },
-  { value: '500+', label: 'Projects delivered' },
-  { value: '4', label: 'Retail brands supported' },
-  { value: '50+', label: 'Design system components shipped' },
-];
-
 const About: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -39,7 +32,6 @@ const About: React.FC = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Per phrase: highlight sweep (1s) → hold (1s) → bold + fade out → next starts
             const sweepDuration = 1000;
             const holdDuration = 1000;
             const fadeOut = 800;
@@ -71,41 +63,19 @@ const About: React.FC = () => {
         <div className="about__content">
           <div className="about__text">
             <SectionBadge icon={<UserIcon />} label="About Me" />
-            <h2 className="about__title">Why I'm especially built for where design is heading</h2>
+            <h2 className="about__title">Why I&rsquo;m especially built for where design is heading</h2>
             <p className="about__body">
-              <span className="about__highlight">Part designer, part front-end thinker, part systems builder</span>&mdash;I do my best work where craft, strategy, and implementation meet. For the last 16 years, what's set me apart hasn't been just visual taste&mdash;it's been the ability to <span className="about__highlight">define the real problem, work within real constraints, and understand how the final product actually gets made.</span>
+              <span className="about__highlight">Part designer, part front-end thinker, part systems builder</span>&mdash;I do my best work where craft, strategy, and implementation meet. For the last 16 years, what&rsquo;s set me apart hasn&rsquo;t been just visual taste&mdash;it&rsquo;s been the ability to <span className="about__highlight">define the real problem, work within real constraints, and understand how the final product actually gets made.</span>
             </p>
             <p className="about__body">
               Early in my career, I was hired for design instinct, visual craft, and strategic thinking. But I knew that if I wanted to build the kind of work I admired, I needed deeper technical fluency. So I closed that gap the same way I approach everything else: reps, curiosity, experimentation, and a lot of time spent learning by doing. Over time, that turned me into the kind of designer who can spot what feels off, understand why, and help fix it at the system level.
             </p>
-            <p className="about__body">
-              <span className="about__highlight">AI is changing how quickly ideas can be explored, designed, and shipped&mdash;but without strategy behind the work and the prompt, the product won’t stand out.</span> I've spent time getting ahead of that curve, actively using LLM workflows to explore faster and push ideas further. But I don't see that as a long-term edge&mdash;it's quickly becoming the expectation.
-            </p>
-            <p className="about__body">
-              The real separation will come from designers who can think beyond the output&mdash;who know how to guide the tools, pressure test what they produce, and push the work further than expected. That's where I do my best work: bringing clear thinking, high standards, and uncommon care to the final product.
-            </p>
-            <p className="about__body">
-              That's a big part of why I feel so well matched for where the industry is now&mdash;bringing together design taste, systems thinking, technical understanding, and a genuine love for making things better than they need to be.
-            </p>
-            <p className="about__body">
-              There's more to how I think&mdash;and how I help teams do better work&mdash;than what fits here.
-            </p>
             <div className="about__cta-links">
               <a href="#/about" className="about__read-more">Go deeper on my approach &rarr;</a>
               <span className="about__link-separator">or</span>
-              <a href="#testimonials" className="about__read-more">see what it's like to work with me &rarr;</a>
+              <a href="#testimonials" className="about__read-more">see what it&rsquo;s like to work with me &rarr;</a>
             </div>
           </div>
-        </div>
-
-        {/* Stats Bar */}
-        <div className="about__stats">
-          {stats.map((stat) => (
-            <div key={stat.label} className="about__stat">
-              <span className="about__stat-value">{stat.value}</span>
-              <span className="about__stat-label">{stat.label}</span>
-            </div>
-          ))}
         </div>
       </div>
     </section>

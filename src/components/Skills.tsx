@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import SectionBadge from './SectionBadge';
 
 const LayersIcon = () => (
@@ -37,17 +37,52 @@ const skillCategories = [
 ];
 
 const Skills: React.FC = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const highlights = section.querySelectorAll('.about__highlight');
+    if (highlights.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const sweepDuration = 1000;
+            const holdDuration = 1000;
+            const cycleTime = sweepDuration + holdDuration + 800 + 400;
+            highlights.forEach((el, i) => {
+              const baseDelay = i * cycleTime;
+              setTimeout(() => el.classList.add('about__highlight--active'), baseDelay);
+              setTimeout(() => {
+                el.classList.add('about__highlight--bold');
+                el.classList.remove('about__highlight--active');
+              }, baseDelay + sweepDuration + holdDuration);
+            });
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="skills" className="skills">
+    <section id="skills" className="skills" ref={sectionRef}>
       <div className="skills__container">
         <div className="skills__header">
           <SectionBadge icon={<LayersIcon />} label="Strengths" />
           <h2 className="skills__title">What I bring beyond the tools</h2>
           <p className="skills__subtitle">
-            Tools help ship the work. These are the strengths that shape whether the work was worth shipping.
+            <span className="about__highlight">AI is changing how quickly ideas can be explored, designed, and shipped&mdash;but without strategy behind the work and the prompt, the product won't stand out.</span> The real separation will come from designers who can think beyond the output&mdash;who know how to guide the tools, pressure test what they produce, and push the work further than expected.
           </p>
           <p className="skills__intro">
-            My value isn't just in what I can do&mdash;it's in how I help teams make better decisions and ship better work.
+            These are the strengths that shape whether the work was worth shipping.
           </p>
         </div>
 

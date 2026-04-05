@@ -113,11 +113,11 @@ function App() {
     <div className="min-h-screen bg-white">
       <HeroHybrid />
       <About />
+      <SelectedWork />
+      <Skills />
+      <Testimonials />
       <HowIWork />
       <TechnicalAbilities />
-      <Skills />
-      <SelectedWork />
-      <Testimonials />
       <FAQ />
       <Footer />
     </div>

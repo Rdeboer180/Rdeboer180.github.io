@@ -67,8 +67,7 @@ const Testimonials: React.FC = () => {
       <div className="testimonials__container">
         <div className="testimonials__header">
           <SectionBadge icon={<QuoteIcon />} label="Testimonials" />
-          <h2 className="testimonials__title">I'm a systems thinker first and a designer second.</h2>
-          <p className="testimonials__subtitle">For the last 16 years, my edge hasn't just been visual craft—it's been the ability to define problems, work within real constraints, and help teams ship better work together. I naturally lean into building shared patterns, supporting junior designers, and raising the bar across a team—not just the work I own.</p>
+          <h2 className="testimonials__title">The best signal of how I work isn't what I say&mdash;it's what the people I've worked with say.</h2>
         </div>
 
         <div className="testimonials__grid">
