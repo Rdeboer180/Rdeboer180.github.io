@@ -17,7 +17,7 @@
 
   &__header {
     margin-bottom: $spacing-3xl;
-    max-width: 600px;
+    max-width: $container-text-width;
   }
 
   &__title {

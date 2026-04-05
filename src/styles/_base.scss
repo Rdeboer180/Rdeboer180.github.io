@@ -230,6 +230,10 @@ svg {
   padding: 0 $container-padding-x;
 }
 
+.container__text {
+  max-width: $container-text-width;
+}
+
 .section {
   padding: $spacing-4xl 0;
 }

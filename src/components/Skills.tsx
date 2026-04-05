@@ -50,9 +50,9 @@ const Skills: React.FC = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const sweepDuration = 1000;
-            const holdDuration = 1000;
-            const cycleTime = sweepDuration + holdDuration + 800 + 400;
+            const sweepDuration = 600;
+            const holdDuration = 400;
+            const cycleTime = sweepDuration + holdDuration + 500 + 200;
             highlights.forEach((el, i) => {
               const baseDelay = i * cycleTime;
               setTimeout(() => el.classList.add('about__highlight--active'), baseDelay);

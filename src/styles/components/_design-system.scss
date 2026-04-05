@@ -40,7 +40,7 @@
   &__subtitle {
     font-size: $font-size-body-lg;
     color: $color-neutral-muted;
-    max-width: 600px;
+    max-width: $container-text-width;
   }
 
   // Nav (Atoms/Molecules tabs)

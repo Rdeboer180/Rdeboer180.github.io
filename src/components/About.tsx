@@ -32,10 +32,10 @@ const About: React.FC = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const sweepDuration = 1000;
-            const holdDuration = 1000;
-            const fadeOut = 800;
-            const cycleTime = sweepDuration + holdDuration + fadeOut + 400;
+            const sweepDuration = 600;
+            const holdDuration = 400;
+            const fadeOut = 500;
+            const cycleTime = sweepDuration + holdDuration + fadeOut + 200;
             highlights.forEach((el, i) => {
               const baseDelay = i * cycleTime;
               setTimeout(() => {

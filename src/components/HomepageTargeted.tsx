@@ -76,7 +76,7 @@ const TargetedHero: React.FC<{ content: TargetedHomepageContent }> = ({ content 
         setTimeout(() => {
           el.classList.add('about__highlight--bold');
           el.classList.remove('about__highlight--active');
-        }, 2000); // 1s sweep + 1s hold
+        }, 1000); // 0.6s sweep + 0.4s hold
       });
     }, 1800);
 
@@ -198,9 +198,9 @@ const TargetedAbout: React.FC<{ content: TargetedHomepageContent }> = ({ content
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const sweepDuration = 2000;
-            const boldPause = 800;
-            const cycleTime = sweepDuration + boldPause + 400;
+            const sweepDuration = 600;
+            const holdDuration = 400;
+            const cycleTime = sweepDuration + holdDuration + 500 + 200;
             highlights.forEach((el, i) => {
               const baseDelay = i * cycleTime;
               setTimeout(() => {
@@ -209,7 +209,7 @@ const TargetedAbout: React.FC<{ content: TargetedHomepageContent }> = ({ content
               setTimeout(() => {
                 el.classList.add('about__highlight--bold');
                 el.classList.remove('about__highlight--active');
-              }, baseDelay + sweepDuration);
+              }, baseDelay + sweepDuration + holdDuration);
             });
             observer.disconnect();
           }
@@ -404,12 +404,12 @@ const HomepageTargeted: React.FC<HomepageTargetedProps> = ({ content }) => {
     <div className="min-h-screen bg-white">
       <TargetedHero content={content} />
       <TargetedAbout content={content} />
-      <HowIWork />
-      <TechnicalAbilities />
-      <TargetedWhyCompany content={content} />
-      <TargetedSkills content={content} />
       <SelectedWork />
+      <TargetedWhyCompany content={content} />
       <Testimonials />
+      <HowIWork />
+      <TargetedSkills content={content} />
+      <TechnicalAbilities />
       <TargetedFAQ content={content} />
       <TargetedFooter content={content} />
     </div>
