@@ -22,39 +22,61 @@ const QuoteMark = () => (
   </svg>
 );
 
+const H: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <span className="testimonials__highlight">{children}</span>
+);
+
 const testimonials = [
   {
-    quote: 'Ryan consistently takes the initiative to engage with relevant teams—such as UX, UXR, Analytics, Imaging, and SEO—whenever needed. He excels at building and maintaining strong relationships, which significantly enhances his overall effectiveness. Moreover, it is evident that he genuinely values and cares for his colleagues.',
+    title: 'Cross-functional & Human',
+    quote: (
+      <>Ryan consistently takes the initiative to engage with relevant teams&mdash;such as UX, UXR, Analytics, Imaging, and SEO&mdash;whenever needed. He excels at <H>building and maintaining strong relationships</H>, which significantly enhances his overall effectiveness. Moreover, it is evident that he genuinely <H>values and cares for his colleagues</H>.</>
+    ),
     name: 'Ryan Kokesh',
     role: 'Senior UX Manager (overseeing design 2022-2024)',
     year: '2024',
   },
   {
-    quote: 'Ryan\'s work is great. He consistently delivers designs that are at once thoughtful, intentional, and visually beautiful. He is thorough and precise, and he makes sure that everyone\'s expectations are being met. Folks love working with Ryan because they know they can expect great communication, attention to detail and strong visual design sense. He helps to set a standard for our visual presentation on the marketing-oriented pages of the site, and does the same in his collaboration and documentation.',
+    title: 'Craft & Standard-Setting',
+    quote: (
+      <>Ryan&rsquo;s work is great. He consistently delivers designs that are at once <H>thoughtful, intentional, and visually beautiful</H>. He is thorough and precise, and he makes sure that everyone&rsquo;s expectations are being met. Folks love working with Ryan because they know they can expect great communication, <H>attention to detail and strong visual design sense</H>. He helps to set a standard for our visual presentation on the marketing-oriented pages of the site, and does the same in his collaboration and documentation.</>
+    ),
     name: 'Adam Payne',
     role: 'Web Design Manager',
     year: '2025',
   },
   {
-    quote: 'Ryan\'s team mentality is unshakable. He views every initiative as a group effort, and includes everyone from stakeholders to peer designers in his comms. He cares deeply about establishing a shared understanding, and genuinely works hard to create and maintain a sense of unity and community. This doesn\'t just help our team in terms of skill development and information sharing, it also strengthens our internal culture between the UX, UXR, Analytics and Web Design teams as a community of practice. He creates community not just for himself, but for those he welcomes in. Most importantly, Ryan sets an example to the rest of the team for what great communication and collaboration looks like.',
+    title: 'Leadership & Team Impact',
+    quote: (
+      <>Ryan&rsquo;s <H>team mentality is unshakable</H>. He views every initiative as a group effort, and includes everyone from stakeholders to peer designers in his comms. He cares deeply about establishing a shared understanding, and genuinely works hard to create and maintain a sense of unity and community. This doesn&rsquo;t just help our team in terms of skill development and information sharing, it also strengthens our internal culture between the UX, UXR, Analytics and Web Design teams as a community of practice. He creates community not just for himself, but for those he welcomes in. Most importantly, Ryan <H>sets an example to the rest of the team for what great communication and collaboration looks like</H>.</>
+    ),
     name: 'Adam Payne',
     role: 'Web Design Manager',
     year: '2025',
   },
   {
-    quote: 'Always very high quality work. Has always thought through even the minor details, with specific reasoning for most all choices.',
+    title: 'Precision & Reasoning',
+    quote: (
+      <><H>Always very high quality work.</H> Has always thought through even the minor details, with <H>specific reasoning for most all choices</H>.</>
+    ),
     name: 'Tim Joines',
     role: 'Tire Rack Senior Management',
     year: '2021',
   },
   {
-    quote: 'Ryan has a lot of institutional knowledge. He understands what we\'ve done in the past, what\'s worked, what hasn\'t, and why. Combined with his technical skills, he has been very effective in project work.',
+    title: 'Systems Thinking',
+    quote: (
+      <>Ryan has a lot of <H>institutional knowledge</H>. He understands what we&rsquo;ve done in the past, <H>what&rsquo;s worked, what hasn&rsquo;t, and why</H>. Combined with his technical skills, he has been very effective in project work.</>
+    ),
     name: 'Ryan Kokesh',
     role: 'Senior UX Manager (overseeing design 2022-2024)',
     year: '2024',
   },
   {
-    quote: 'The new site has been amazing—we\'re getting new inquiries every day, and clients have been loving it. It\'s made it so much easier to connect and respond, and I couldn\'t be happier with how it\'s working for us.',
+    title: 'Business Impact',
+    quote: (
+      <>The new site has been amazing&mdash;we&rsquo;re <H>getting new inquiries every day</H>, and <H>clients have been loving it</H>. It&rsquo;s made it so much easier to connect and respond, and I couldn&rsquo;t be happier with how it&rsquo;s working for us.</>
+    ),
     name: 'Deborah Clements',
     role: 'Owner & Operator, Heatherwood Equestrian Academy',
     year: '2025',
@@ -74,6 +96,7 @@ const Testimonials: React.FC = () => {
           {testimonials.map((t, i) => (
             <div key={i} className="testimonials__card">
               <QuoteMark />
+              <span className="testimonials__card-title">{t.title}</span>
               <p className="testimonials__quote">{t.quote}</p>
               <div className="testimonials__author">
                 <span className="testimonials__name">— {t.name}</span>
