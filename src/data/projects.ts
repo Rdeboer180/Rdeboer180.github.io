@@ -848,6 +848,163 @@ const projects: Project[] = [
       { value: 'Consistent', label: 'UX across all SEO experiences' },
     ],
   },
+
+  // =============================================
+  // 5. AEM Component System Rebuild  [image RIGHT]
+  // =============================================
+  {
+    slug: 'aem-component-system',
+    client: 'Tire Rack',
+    title: 'AEM Component System Rebuild',
+    summary: 'Partnered with a newly formed AEM dev team to rebuild Tire Rack\u2019s authoring system around reusable core components\u201410+ components shipped, 60% faster page loads, and a foundation the whole content org could scale on.',
+    year: '2024\u20132025',
+    tags: ['Design Systems', 'AEM', 'Front-End Development', 'UX Engineering'],
+    role: 'Senior Web Designer / UX Engineer',
+    tools: ['AEM', 'Figma', 'Sass', 'HTML/CSS', 'Git'],
+    timeline: '~12 months (ongoing)',
+    featured: '/images/work/aem-component-system/CS_thumbnail_AEM_componentSystemRebuild.jpg',
+    timeToLive: '12 months from kickoff to live components\u2014core variants and templates now powering the homepage and tires hub.',
+
+    // \u2500\u2500 01 Problem \u2500\u2500
+    problemPunch: 'A decade of AEM authoring with no investment in core components, modern patterns, or a shared system.',
+    problem: [
+      'I\u2019d been authoring in AEM since 2013, before Adobe even acquired the platform\u2014but the team never adopted core components, editable templates, or a scalable pattern library.',
+      'Every page was stitched together from aging custom components, one-off overrides, and asset dumps that slowed authoring and hurt page performance.',
+      'In 2025 we finally hired a dedicated AEM dev team\u2014the moment to rebuild the foundation, not just patch what was there.',
+    ],
+    problemImages: [
+      {
+        src: '/images/work/aem-component-system/supporting/AEM_CoreComponents.jpeg',
+        alt: 'Existing AEM component inventory showing fragmented, aging custom components',
+        layout: 'full',
+        caption: 'Starting point\u2014fragmented custom components built up over a decade of authoring decisions',
+      },
+    ],
+
+    // \u2500\u2500 02 Gaps & Opportunity \u2500\u2500
+    gapsPunch: 'No reusable patterns. No variable system. Authoring and engineering solving the same problems twice.',
+    gaps: [
+      'Heroes, product grids, and teasers existed in five different flavors\u2014none of them sharing structure, tokens, or authoring behavior.',
+      'SEO and accessibility requirements were bolted on per page instead of baked into the component layer.',
+      'No shared Sass variables or authoring defaults\u2014every new page meant re-deciding spacing, type scale, and responsive behavior.',
+      'Design team had no documentation on when to use which component or how variants were meant to behave.',
+    ],
+    gapsImages: [
+      {
+        src: '/images/work/aem-component-system/supporting/Notes_AEM_HeroCore_Solution.jpeg',
+        alt: 'Audit notes mapping repeated hero patterns and proposing a consolidated core hero component',
+        layout: 'half',
+        caption: 'Hero audit\u2014mapping repeated patterns into a single core component with defined variants',
+      },
+      {
+        src: '/images/work/aem-component-system/supporting/Notes_AEM_ProductGridComponentNeeds.jpeg',
+        alt: 'Product grid component needs documented with variant requirements and authoring fields',
+        layout: 'half',
+        caption: 'Product grid proposal\u2014documenting authoring fields, variants, and edge cases before dev work started',
+      },
+    ],
+
+    // \u2500\u2500 03 Constraints \u2500\u2500
+    constraintsPunch: 'Live enterprise CMS. SEO-critical surfaces. A new dev team still learning the codebase.',
+    constraints: [
+      'Work happened inside a live production AEM instance\u2014nothing could break authoring for merchandising or content teams mid-flight.',
+      'Every component had to meet WCAG and SEO requirements from day one, not as a post-launch cleanup pass.',
+      'The Digital Asset Manager had years of unoptimized imagery dragging down page performance\u2014100+ assets needed reorganization and compression before new components could ship cleanly.',
+      'I had to invest in technical fluency myself\u2014completed AEM authoring certification, finished the weekend AEM tutorial, and leveled up on Sass structure so I could contribute real code alongside the dev team.',
+    ],
+    constraintsImages: [
+      {
+        src: '/images/work/aem-component-system/supporting/Notes_AEM_AssetDam_Cleanup.jpeg',
+        alt: 'Asset DAM cleanup notes showing image organization and SEO optimization plan',
+        layout: 'full',
+        caption: 'DAM cleanup plan\u2014100+ assets reorganized and optimized before the new components went live',
+      },
+    ],
+
+    insightCallout: 'The win wasn\u2019t any single component\u2014it was establishing a shared system of variables, variants, and documentation that the design, dev, SEO, and accessibility teams could all build against.',
+
+    // \u2500\u2500 04 Approach (subsections) \u2500\u2500
+    approachSubsections: [
+      {
+        key: 'alignment',
+        label: 'Alignment',
+        description: 'Worked directly with Patrick Steins, our lead AEM dev, to establish what core components we could adopt as-is, which needed extension, and which had to be built from scratch. Partnered early with SEO and accessibility leads so their requirements were baked into the component contract, not layered on after.',
+        images: [],
+      },
+      {
+        key: 'structure',
+        label: 'Component Proposals',
+        description: 'Before any dev work started, I wrote up each component\u2014authoring fields, variants, responsive behavior, edge cases, and how it should plug into editable templates. These proposals became the shared contract between design and engineering.',
+        images: [
+          {
+            src: '/images/work/aem-component-system/supporting/Notes_AEMfeaturedProduct_ComponentWriteUp.jpeg',
+            alt: 'Featured product component write-up documenting variants, fields, and authoring behavior',
+            layout: 'full',
+            caption: 'Featured product write-up\u2014the kind of proposal that turned ambiguous patterns into buildable specs',
+          },
+        ],
+      },
+      {
+        key: 'system',
+        label: 'Building the Variants',
+        description: 'Built 8 core component variants directly\u2014heroes, teasers, lists, featured product blocks\u2014and directed 3 more API-driven foundation components that pull live content. Each variant shipped with its Sass, authoring defaults, and documentation at the same time.',
+        systemMarker: 'System decision',
+        gridColumns: 2,
+        images: [
+          {
+            src: '/images/work/aem-component-system/supporting/FinalComponentBuildout_Hero.jpeg',
+            alt: 'Final hero component buildout showing variants and responsive behavior',
+            layout: 'half',
+            caption: 'Hero core\u2014one component, multiple variants, consistent authoring',
+          },
+          {
+            src: '/images/work/aem-component-system/supporting/FinalComponentBuildout_Teasers.jpeg',
+            alt: 'Final teaser component buildout with multiple layout variations',
+            layout: 'half',
+            caption: 'Teasers\u2014built to handle editorial, promotional, and product surfaces from the same base',
+          },
+        ],
+      },
+      {
+        key: 'build',
+        label: 'Design-to-Code Foundation',
+        description: 'This wasn\u2019t a design-only handoff. I wrote Sass, defined the global variable layer, and shipped component-level code alongside the dev team\u2014closing the gap between what was designed and what landed in production.',
+        gridColumns: 2,
+        images: [
+          {
+            src: '/images/work/aem-component-system/supporting/AEM_ThinHeroCode.png',
+            alt: 'Sass and component code for the thin hero variant',
+            layout: 'half',
+            caption: 'Thin hero Sass\u2014component-level code I owned end-to-end',
+          },
+          {
+            src: '/images/work/aem-component-system/supporting/newCore_variables.jpeg',
+            alt: 'Global Sass variables powering the new AEM core component system',
+            layout: 'half',
+            caption: 'Global variables\u2014the foundation every new component pulls from',
+          },
+        ],
+      },
+      {
+        key: 'iteration',
+        label: 'Documentation & Handoff',
+        description: 'Every component shipped with written documentation for the design team\u2014when to use which variant, what fields to author, and how the component behaves across breakpoints. That documentation is what turned the build into an actual system other people could use.',
+        images: [],
+      },
+    ],
+
+    // \u2500\u2500 05 Outcome \u2500\u2500
+    outcomeNote: 'The rebuild moved Tire Rack\u2019s AEM authoring from one-off pages to a real component system\u2014faster page loads, cleaner authoring, and a shared foundation across design, dev, SEO, and accessibility. The new core components now power the homepage and the tires hub in production.',
+    outcomeLiveLinks: [
+      { label: 'Tire Rack Homepage', url: 'https://www.tirerack.com/' },
+      { label: 'Tire Rack Tires', url: 'https://www.tirerack.com/tires' },
+    ],
+    metrics: [
+      { value: '60%', label: 'Faster page load time' },
+      { value: '10+', label: 'Reusable components shipped' },
+      { value: '100+', label: 'DAM assets optimized' },
+    ],
+  },
 ];
 
 export default projects;
