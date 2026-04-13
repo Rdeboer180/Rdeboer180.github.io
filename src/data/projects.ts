@@ -530,7 +530,7 @@ const projects: Project[] = [
     slug: 'heatherwood',
     client: 'Heatherwood Equestrian Academy',
     title: 'Building a Brand and a Sustainable System for a Local Equestrian Academy',
-    summary: 'Built a complete digital brand from scratch for a 30-year family-owned academy\u201410+ SEO service pages, each with its own conversion path, running on a CMS the owner manages independently.',
+    summary: 'Rebranded and rebuilt the digital presence for a 30-year family-owned academy\u2014driving a 400% increase in form submissions, 6x service page inquiries, and 600%+ traffic growth in the first month.',
     year: '2025',
     tags: ['Brand Design', 'Web', 'SEO', 'CMS'],
     role: 'Brand & Web Designer',
@@ -540,9 +540,9 @@ const projects: Project[] = [
     timeToLive: '~4 months from first meeting to full brand + site launch',
 
     // \u2500\u2500 01 Problem \u2500\u2500
-    problemPunch: 'No brand. No website. No way for families to discover or enroll online.',
+    problemPunch: 'An outdated brand and website that wasn\u2019t converting\u2014after 12+ years, the digital presence no longer matched the quality of the program.',
     problem: [
-      'Heatherwood had operated for decades on word-of-mouth alone\u2014no brand system, no web presence.',
+      'Heatherwood had operated under the same brand and website for 12+ years\u2014it wasn\u2019t optimized for search, wasn\u2019t converting visitors, and didn\u2019t reflect the caliber of the program.',
       'Families search for specific activities ("horseback riding lessons South Bend"), not the brand name. Each service needed its own search entry point.',
       'The system had to be fully owner-managed with zero ongoing agency dependency.',
     ],
@@ -556,9 +556,9 @@ const projects: Project[] = [
     ],
 
     // \u2500\u2500 02 Gaps & Opportunity \u2500\u2500
-    gapsPunch: 'Competing with commercial programs on visuals while capturing the warmth of a family-run academy.',
+    gapsPunch: 'An aging identity competing against polished commercial programs\u2014without the SEO or conversion infrastructure to back it up.',
     gaps: [
-      'No visual identity existed\u2014needed a brand that feels warm and family-oriented but competes with larger commercial programs.',
+      'The existing brand felt dated and lacked the polish needed to compete with larger commercial programs\u2014needed a full rebrand that feels warm and family-oriented but holds its own visually.',
       'Each service (lessons, camps, boarding, birthday parties, trail rides) needed to function as an independent SEO landing page with its own conversion path.',
       'Every headline had to work for both the parent scanning the page and the search engine indexing it.',
     ],
@@ -607,7 +607,7 @@ const projects: Project[] = [
       {
         key: 'system',
         label: 'System',
-        description: 'Built the brand identity (logo, color, typography) and designed reusable page patterns\u2014service card grids, FAQ accordions, contact form sidebars\u2014that scale across 10+ service pages.',
+        description: 'Redesigned the full brand identity (logo, color, typography) and built reusable page patterns\u2014service card grids, FAQ accordions, contact form sidebars\u2014that scale across 10+ service pages.',
         systemMarker: 'System decision',
         gridColumns: 2,
         images: [
@@ -641,7 +641,7 @@ const projects: Project[] = [
     ],
 
     // \u2500\u2500 05 Outcome \u2500\u2500
-    outcomeNote: 'The site launched with a complete brand identity, 10+ SEO-optimized service pages each functioning as independent search entry points with dedicated contact forms, an FAQ section addressing real parent questions, and a WordPress CMS the owner operates independently. Families now discover Heatherwood through Google searches for specific services\u2014a capability that didn\u2019t exist before this project.',
+    outcomeNote: 'The rebrand and new site launched with a complete identity overhaul, 10+ SEO-optimized service pages each functioning as independent search entry points with dedicated contact forms, and a WordPress CMS the owner operates independently. In the first month, Deborah Clements saw a 400% increase in form submissions, service pages experienced a 6x increase in inquiries, and overall traffic grew over 600%.',
     outcomeImages: [
       {
         src: '/images/work/heatherwood/supporting/outcome/heatherwood-final-desktop-01.png',
@@ -658,9 +658,9 @@ const projects: Project[] = [
       },
     ],
     metrics: [
-      { value: 'Full Brand', label: 'Built from zero' },
-      { value: '10+', label: 'SEO service landing pages' },
-      { value: 'Owner-Run', label: 'Zero ongoing agency dependency' },
+      { value: '400%', label: 'Increase in form submissions' },
+      { value: '6x', label: 'Service page inquiries' },
+      { value: '600%+', label: 'Traffic growth in first month' },
     ],
   },
   // =============================================
